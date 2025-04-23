@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Altersvorsorge für Selbständige in Berlin - Maßgeschneiderte Lösungen für deine finanzielle Zukunft">
+    <meta name="theme-color" content="#e2fe6c">
+    <title>vorsorge.berlin - Altersvorsorge für Selbständige</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e2fe6c;
+            --primary-dark: #c7e54a;
+            --secondary: #001d6c;
+            --secondary-light: #253c8a;
+            --light: #f5f7fa;
+            --dark: #121212;
+            --gray: #cfdbf7;
+            --gray-light: #edf0f7;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --container-padding: clamp(1rem, 5%, 2rem);
+            --section-spacing: 8rem; /* Added section spacing variable */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 0.6rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span.highlight {
+            color: var(--secondary);
+            background-color: var(--primary);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--primary);
+            padding: 5rem 0;
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 29, 108, 0.05);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-text p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            object-fit: cover;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.9rem 1.75rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.4;
+            min-width: 160px;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:hover::after {
+            height: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gray-light);
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: 5rem;
+            position: relative;
+            padding-top: 2rem;
+        }
+        
+        /* Added spacing for specific sections */
+        section.spaced-section {
+            margin-top: var(--section-spacing);
+            margin-bottom: var(--section-spacing);
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+        
+        /* Cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        
+        .card:hover .card-icon {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .card-footer {
+            margin-top: auto;
+            padding-top: 2rem;
+        }
+        
+        /* Updated Steps */
+        .steps-container {
+            position: relative;
+            padding: 3rem 0;
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(226, 254, 108, 0.2), transparent 60%),
+                        radial-gradient(circle at bottom left, rgba(0, 29, 108, 0.1), transparent 60%);
+            z-index: 0;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            gap: 2.5rem;
+        }
+        
+        .step {
+            flex: 0 0 calc(20% - 2.5rem);
+            min-width: 200px;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 3px solid white;
+        }
+        
+        .step:hover .step-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            right: -30px;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+            z-index: 1;
+        }
+        
+        .step:last-child::after {
+            display: none;
+        }
+        
+        .step-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: var(--shadow-sm);
+            font-size: 1rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 0.75rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .step p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Tools */
+        .tools {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+        
+        .tool {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+        
+        .tool:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+        
+        .tool-header h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        
+        .tool-header .toggle-icon {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-header .toggle-icon::before,
+        .tool-header .toggle-icon::after {
+            content: '';
+            position: absolute;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .tool-header .toggle-icon::before {
+            width: 2px;
+            height: 12px;
+            top: 6px;
+            left: 11px;
+        }
+        
+        .tool-header .toggle-icon::after {
+            width: 12px;
+            height: 2px;
+            top: 11px;
+            left: 6px;
+        }
+        
+        .tool.active .toggle-icon::before {
+            transform: scaleY(0);
+        }
+        
+        .tool-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0;
+            border-top: 0 solid var(--gray-light);
+        }
+        
+        .tool.active .tool-content {
+            max-height: 500px;
+            padding-top: 1.5rem;
+            margin-top: 1rem;
+            border-top-width: 1px;
+        }
+        
+        .tool-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--gray-light);
+            padding: 5rem 0;
+        }
+        
+        .testimonial-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .testimonial {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            height: 100%;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .testimonial-text {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 2.5rem;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Contact Form */
+        .cta {
+            background-color: var(--primary);
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 29, 108, 0.05);
+        }
+        
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+        }
+        
+        .contact-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0,29,108,0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            margin-left: auto;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--secondary);
+            position: absolute;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-3px);
+        }
+        
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1.5rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            z-index: 9999;
+            display: none;
+            animation: slideUp 0.5s ease forwards;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .cookie-text {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .cookie-text h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .cookie-text p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cookie-btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            min-width: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            section {
+                margin-bottom: 5rem;
+            }
+            
+            .hero {
+                padding: 4rem 0;
+                margin-bottom: 4rem;
+            }
+            
+            .step::after {
+                display: none;
+            }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .step {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                padding: 5rem 2rem 2rem;
+                z-index: 1000;
+                transition: var(--transition);
+                gap: 0;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            nav ul li a {
+                padding: 1rem 0;
+                display: block;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-image {
+                justify-content: center;
+                margin-top: 2rem;
+            }
+            
+            .step {
+                margin-bottom: 2rem;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .cookie-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .cookie-buttons {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            :root {
+                --container-padding: 1rem;
+            }
+            
+            .card,
+            .tool,
+            .testimonial {
+                padding: 1.5rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .section-title {
+                margin-bottom: 2rem;
+            }
+            
+            .testimonial-author {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .testimonial-author img {
+                margin-right: 0;
+                margin-bottom: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <span class="highlight">HT</span> vorsorge.berlin
+                </a>
+                <nav>
+                    <div class="hamburger" id="hamburger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="nav-menu">
+                        <li><a href="#grundlagen">Grundlagen</a></li>
+                        <li><a href="#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="#tools">Tools & Rechner</a></li>
+                        <li><a href="#beratung">Jetzt loslegen</a></li>
+                        <li><a href="#kontakt">Kontakt</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Altersvorsorge für Selbständige in Berlin</h1>
+                    <p>Das House of Finance & Tech bietet maßgeschneiderte Lösungen für deine finanzielle Zukunft. Wir helfen dir, deine Altersvorsorge optimal zu gestalten – einfach, transparent und auf deine Bedürfnisse zugeschnitten.</p>
+                    <div class="btn-group">
+                        <a href="#vorsorgeplanung" class="btn">Starte jetzt in nur 5 min</a>
+                    </div>
+                </div>
+                <div class="hero-image fade-in" style="animation-delay: 0.2s;">
+                    <img src="event.png" alt="Team von vorsorge.berlin">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="grundlagen" class="container fade-in" style="animation-delay: 0.3s;">
+        <div class="section-title">
+            <h2>Die Grundlagen der Altersvorsorge</h2>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-content">
+                    <h3><span class="card-icon">1</span> Warum ist Vorsorge wichtig?</h3>
+                    <p>Als Selbständige/r in Berlin bist du nicht automatisch in das gesetzliche Rentensystem eingebunden. Die Planung deiner finanziellen Zukunft liegt in deinen Händen. Eine frühzeitige und durchdachte Altersvorsorge ist entscheidend für deinen Lebensstandard im Alter.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3><span class="card-icon">2</span> Besonderheiten für Selbständige</h3>
+                    <p>Im Gegensatz zu Angestellten musst du deine gesamte Altersvorsorge selbst organisieren. Dafür hast du mehr Flexibilität und kannst verschiedene Anlagestrategien miteinander kombinieren. Wir zeigen dir, wie du diese Freiheit optimal nutzen kannst.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3><span class="card-icon">3</span> Die drei Säulen der Vorsorge</h3>
+                    <p>Eine ausgewogene Altersvorsorge basiert auf mehreren Säulen: gesetzliche Rentenversicherung (freiwillig), private Vorsorge und betriebliche Altersvorsorge. Wir helfen dir, die richtige Balance für deine individuelle Situation zu finden.</p>
+                    <p>Hast du Fragen zu den verschiedenen Vorsorgemodellen? <a href="faq.html">Schau in unsere FAQ-Seite</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Updated section with more spacing and improved visual design -->
+    <section id="vorsorgeplanung" class="spaced-section fade-in" style="animation-delay: 0.4s;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dein Vorsorgeplan in 5 Schritten</h2>
+            </div>
+            
+            <div class="steps-container">
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3>Bestandsaufnahme</h3>
+                        <p>Analyse deiner aktuellen finanziellen Situation und Vorsorgelücke</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                        </div>
+                        <h3>Zieldefinition</h3>
+                        <p>Festlegung deiner Vorsorge-Ziele und des gewünschten Lebensstandards im Alter</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Strategie</h3>
+                        <p>Entwicklung einer maßgeschneiderten Vorsorgstrategie für deine Bedürfnisse</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Umsetzung</h3>
+                        <p>Begleitung bei der Umsetzung und regelmäßige Überprüfung</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                            </svg>
+                        </div>
+                        <h3>Überprüfung</h3>
+                        <p>Jährliche Überprüfung und Anpassung bei Bedarf</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Added spacing to Tools & Rechner section -->
+    <section id="tools" class="container spaced-section fade-in" style="animation-delay: 0.5s;">
+        <div class="section-title">
+            <h2>Tools & Rechner</h2>
+        </div>
+        <p>Nutze unsere interaktiven Tools, um deine Altersvorsorge zu planen:</p>
+        
+        <div class="tools">
+            <div class="tool">
+                <div class="tool-header">
+                    <h3><span class="card-icon">R</span> Rentenlückenrechner</h3>
+                    <div class="toggle-icon"></div>
+                </div>
+                <div class="tool-content">
+                    <p>Berechne deine potenzielle Rentenlücke und erkenne, wie viel du zusätzlich vorsorgen solltest.</p>
+                    <a href="#" class="btn">Zum Rechner</a>
+                </div>
+            </div>
+            
+            <div class="tool">
+                <div class="tool-header">
+                    <h3><span class="card-icon">S</span> Sparplanrechner</h3>
+                    <div class="toggle-icon"></div>
+                </div>
+                <div class="tool-content">
+                    <p>Finde heraus, wie viel du monatlich zurücklegen musst, um deine finanziellen Ziele im Alter zu erreichen.</p>
+                    <a href="#" class="btn">Zum Rechner</a>
+                </div>
+            </div>
+            
+            <div class="tool">
+                <div class="tool-header">
+                    <h3><span class="card-icon">V</span> Vorsorgeprodukt-Vergleich</h3>
+                    <div class="toggle-icon"></div>
+                </div>
+                <div class="tool-content">
+                    <p>Vergleiche verschiedene Vorsorgeprodukte basierend auf deinen individuellen Anforderungen.</p>
+                    <a href="#" class="btn">Zum Vergleich</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials fade-in" style="animation-delay: 0.6s;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Was unsere Kunden sagen</h2>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        <p>Als Grafikdesignerin hatte ich keine Ahnung, wie ich meine Altersvorsorge angehen sollte. Das Team von Vorsorge Berlin hat mir einen verständlichen Plan erstellt, den ich problemlos umsetzen konnte.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="event.png" alt="Mira Schneider" style="width: 50px; height: 50px; object-fit: cover;">
+                        <div>
+                            <strong>Mira Schneider</strong><br>
+                            Grafikdesignerin
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        <p>Endlich ein Beratungsangebot, das die speziellen Bedürfnisse von Freelancern versteht! Klare Empfehlungen ohne Fachchinesisch – genau das habe ich gesucht.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="event.png" alt="Thomas Becker" style="width: 50px; height: 50px; object-fit: cover;">
+                        <div>
+                            <strong>Thomas Becker</strong><br>
+                            Webentwickler
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        <p>Mit 45 habe ich realisiert, dass ich für meine Altersvorsorge noch nicht viel getan hatte. Vorsorge Berlin hat mir gezeigt, dass es auch dafür nicht zu spät ist und einen maßgeschneiderten Plan erstellt.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="event.png" alt="Laura Weber" style="width: 50px; height: 50px; object-fit: cover;">
+                        <div>
+                            <strong>Laura Weber</strong><br>
+                            Fotografin
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Added spacing to "Jetzt konkret loslegen" section -->
+    <section id="beratung" class="container spaced-section fade-in" style="animation-delay: 0.7s;">
+        <div class="section-title">
+            <h2>Jetzt konkret loslegen</h2>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-content">
+                    <h3><span class="card-icon">E</span> Zum nächsten Event anmelden</h3>
+                    <p>Nimm an unseren Workshops und Informationsveranstaltungen teil, um mehr über Altersvorsorgelösungen zu erfahren und dich mit Experten auszutauschen. Regelmäßige Veranstaltungen zu verschiedenen Vorsorgethemen.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#kontakt" class="btn">Event finden</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <h3><span class="card-icon">C</span> Teil der Community werden</h3>
+                    <p>Tritt unserer Community bei und tausche dich mit anderen Selbständigen über Erfahrungen und Tipps aus. Zugang zu exklusiven Inhalten, Webinaren und regelmäßigen Netzwerkveranstaltungen.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#kontakt" class="btn">Community beitreten</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <h3><span class="card-icon">B</span> Expertin/Experten finden</h3>
+                    <p>Lass dich von unseren spezialisierten Beraterinnen und Beratern unterstützen, die Erfahrung mit den besonderen Anforderungen von Selbständigen haben. Individuelle Betreuung und maßgeschneiderte Lösungen.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#kontakt" class="btn">Beratung vereinbaren</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="cta fade-in" style="animation-delay: 0.8s;">
+        <div class="container">
+            <h2>Bereit für deine finanzielle Zukunft?</h2>
+            <p>Vereinbare jetzt ein kostenloses Erstgespräch mit unseren Vorsorge-Experten.</p>
+            
+            <div class="contact-form-container">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Dein Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" placeholder="Deine E-Mail-Adresse" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" placeholder="Deine Telefonnummer">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Nachricht</label>
+                        <textarea id="message" rows="4" placeholder="Wie können wir dir helfen?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Absenden</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Updated footer with new address -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>vorsorge.berlin</h3>
+                    <p>House of Finance and Tech Berlin GmbH<br>
+                    (HoFT Berlin GmbH)<br>
+                    c/o Spielfeld Digital Hub GmbH<br>
+                    Skalitzer Str. 85-86<br>
+                    10997 Berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <p>Tel: +49 (0)30 43974287-0<br>
+                    E-Mail: info@hoft.berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#grundlagen">Grundlagen</a></li>
+                        <li><a href="#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="#tools">Tools & Rechner</a></li>
+                        <li><a href="#beratung">Jetzt loslegen</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="#">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                        <li><a href="#">AGB</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 vorsorge.berlin | House of Finance and Tech Berlin GmbH</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookie-consent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3>Hinweis zu Cookies</h3>
+                <p>Diese Website verwendet Cookies, um Ihnen ein optimales Nutzererlebnis zu bieten. Durch die weitere Nutzung unserer Website stimmen Sie der Verwendung von Cookies zu. Detaillierte Informationen zur Verwendung von Cookies finden Sie in unserer <a href="#">Datenschutzerklärung</a>.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-all-cookies" class="btn cookie-btn">Alle akzeptieren</button>
+                <button id="accept-essential-cookies" class="btn cookie-btn btn-secondary">Nur essenzielle Cookies</button>
+                <button id="cookie-settings" class="btn cookie-btn btn-secondary">Einstellungen</button>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Nach oben scrollen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const header = document.getElementById('header');
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const toolHeaders = document.querySelectorAll('.tool-header');
+            const backToTop = document.getElementById('back-to-top');
+            const contactForm = document.getElementById('contact-form');
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptAllCookies = document.getElementById('accept-all-cookies');
+            const acceptEssentialCookies = document.getElementById('accept-essential-cookies');
+            const cookieSettings = document.getElementById('cookie-settings');
+            const scrollThreshold = 100;
+            
+            // Show cookie consent
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieConsent.style.display = 'block';
+                }, 1000);
+            }
+            
+            // Cookie consent handlers
+            acceptAllCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'all');
+                cookieConsent.style.display = 'none';
+            });
+            
+            acceptEssentialCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'essential');
+                cookieConsent.style.display = 'none';
+            });
+            
+            cookieSettings.addEventListener('click', () => {
+                // In a real implementation, this would open a modal with detailed cookie settings
+                alert('In einer vollständigen Implementierung würde hier ein Modal mit detaillierten Cookie-Einstellungen geöffnet werden.');
+            });
+            
+            // Toggle mobile menu
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on nav items
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (navMenu.classList.contains('active') && 
+                    !event.target.closest('nav')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Toggle tools
+            toolHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const tool = header.closest('.tool');
+                    
+                    // Close other open tools
+                    document.querySelectorAll('.tool.active').forEach(activeTool => {
+                        if (activeTool !== tool) {
+                            activeTool.classList.remove('active');
+                        }
+                    });
+                    
+                    tool.classList.toggle('active');
+                });
+            });
+            
+            // Scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', smoothScroll);
+            });
+            
+            // Form submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleFormSubmit);
+            }
+            
+            // Intersection Observer for animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+            
+            // Back to top button
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Functions
+            function toggleMobileMenu(e) {
+                e.stopPropagation();
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+            
+            function closeMobileMenu() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+            
+            function handleScroll() {
+                // Smaller header on scroll
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                    backToTop.classList.add('visible');
+                } else {
+                    header.classList.remove('scrolled');
+                    backToTop.classList.remove('visible');
+                }
+            }
+            
+            function smoothScroll(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - headerHeight;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    closeMobileMenu();
+                }
+            }
+            
+            function handleFormSubmit(e) {
+                e.preventDefault();
+                
+                // Simple validation
+                let valid = true;
+                const name = document.getElementById('name');
+                const email = document.getElementById('email');
+                
+                if (!name.value.trim()) {
+                    valid = false;
+                    name.style.borderColor = '#ff3860';
+                } else {
+                    name.style.borderColor = '#ddd';
+                }
+                
+                if (!email.value.trim() || !email.value.includes('@')) {
+                    valid = false;
+                    email.style.borderColor = '#ff3860';
+                } else {
+                    email.style.borderColor = '#ddd';
+                }
+                
+                if (valid) {
+                    // In a real application, you would send the form data to a server
+                    // Here we just simulate a successful submission
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Wird gesendet...';
+                    
+                    setTimeout(() => {
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'success-message';
+                        successMessage.style.padding = '1rem';
+                        successMessage.style.marginTop = '1rem';
+                        successMessage.style.backgroundColor = '#e2fe6c';
+                        successMessage.style.borderRadius = '8px';
+                        successMessage.style.fontWeight = '500';
+                        successMessage.style.textAlign = 'center';
+                        successMessage.textContent = 'Danke für deine Nachricht! Wir melden uns in Kürze bei dir.';
+                        
+                        contactForm.reset();
+                        contactForm.appendChild(successMessage);
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                        
+                        setTimeout(() => {
+                            successMessage.style.opacity = '0';
+                            successMessage.style.transition = 'opacity 0.5s ease';
+                            
+                            setTimeout(() => {
+                                contactForm.removeChild(successMessage);
+                            }, 500);
+                        }, 3000);
+                    }, 1000);
+                }
+            }
+            
+            // Initialize
+            handleScroll();
+        });
+    </script>
+</body>
+</html>
