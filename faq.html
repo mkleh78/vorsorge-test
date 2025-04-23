@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Häufig gestellte Fragen zur Altersvorsorge für Selbständige in Berlin - Antworten auf die wichtigsten Fragen">
+    <meta name="theme-color" content="#e2fe6c">
+    <title>FAQ - vorsorge.berlin - Altersvorsorge für Selbständige</title>
+    <!-- Dateiname: faq.html -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e2fe6c;
+            --primary-dark: #c7e54a;
+            --secondary: #001d6c;
+            --secondary-light: #253c8a;
+            --light: #f5f7fa;
+            --dark: #121212;
+            --gray: #cfdbf7;
+            --gray-light: #edf0f7;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --container-padding: clamp(1rem, 5%, 2rem);
+            --section-spacing: 8rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 0.6rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span.highlight {
+            color: var(--secondary);
+            background-color: var(--primary);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--primary);
+            padding: 4rem 0;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 29, 108, 0.05);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-text p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background-color: var(--gray-light);
+            padding: 0.75rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .breadcrumbs a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--secondary-light);
+            text-decoration: underline;
+        }
+        
+        .breadcrumbs span {
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        /* FAQ Section Styles */
+        .faq-section {
+            margin: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        
+        .faq-item:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary);
+            position: relative;
+        }
+        
+        .faq-question::after {
+            content: '';
+            display: block;
+            width: 14px;
+            height: 14px;
+            border-right: 2px solid var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            position: absolute;
+            right: 2rem;
+            top: calc(50% - 10px);
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(-135deg);
+            top: calc(50% - 4px);
+        }
+        
+        .faq-answer {
+            padding: 0 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 2rem 2rem;
+            max-height: 1000px;
+        }
+        
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background-color: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .comparison-table th {
+            background-color: var(--secondary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--gray-light);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Tips Section */
+        .tips-section {
+            background-color: var(--gray-light);
+            padding: 4rem 0;
+            border-radius: var(--radius-lg);
+            margin: 4rem 0;
+        }
+        
+        .tips-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tip-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-right: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .tip-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--secondary);
+        }
+        
+        .tip-content {
+            flex: 1;
+        }
+        
+        .tip-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--primary);
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: var(--radius-lg);
+            margin: 4rem 0;
+        }
+        
+        .cta-section h2 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.9rem 1.75rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.4;
+            min-width: 160px;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:hover::after {
+            height: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            margin-left: auto;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--secondary);
+            position: absolute;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-3px);
+        }
+        
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1.5rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            z-index: 9999;
+            display: none;
+            animation: slideUp 0.5s ease forwards;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .cookie-text {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .cookie-text h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .cookie-text p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cookie-btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            min-width: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .faq-container {
+                padding: 0 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                padding: 5rem 2rem 2rem;
+                z-index: 1000;
+                transition: var(--transition);
+                gap: 0;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            nav ul li a {
+                padding: 1rem 0;
+                display: block;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding: 0 1rem;
+            }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .cookie-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .cookie-buttons {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            :root {
+                --container-padding: 1rem;
+            }
+            
+            .faq-question {
+                padding: 1.25rem 1.5rem;
+                padding-right: 3rem;
+            }
+            
+            .faq-question::after {
+                right: 1.5rem;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 0 1.5rem 1.5rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .section-title {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="highlight">HT</span> vorsorge.berlin
+                </a>
+                <nav>
+                    <div class="hamburger" id="hamburger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="nav-menu">
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="index.html#kontakt">Kontakt</a></li>
+                        <li><a href="faq.html" style="color: var(--secondary); font-weight: 700;">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Startseite</a> &gt; <span>FAQ</span>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Häufig gestellte Fragen zur Altersvorsorge</h1>
+                    <p>Wir haben die wichtigsten Fragen und Antworten zum Thema Altersvorsorge für Selbständige in Berlin zusammengestellt. Hier findest du alle Informationen, die du für deine finanzielle Zukunftsplanung benötigst.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section container fade-in" style="animation-delay: 0.3s;">
+        <div class="section-title">
+            <h2>Die wichtigsten Fragen und Antworten</h2>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>1. Bin ich als Selbständiger verpflichtet, in die gesetzliche Rentenversicherung einzuzahlen?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Grundsätzlich nicht – die meisten Selbständigen sind nicht versicherungspflichtig in der gesetzlichen Rentenversicherung. Es gibt jedoch Ausnahmen, etwa für Handwerksbetriebe mit Eintrag in die Handwerksrolle oder bestimmte Berufsgruppen (z. B. Lehrer auf Honorarbasis, Pflegepersonen, Künstler und Publizisten nach dem Künstlersozialversicherungsgesetz).</p>
+                    <p>Ab 2025 tritt eine Reform in Kraft, wonach neu gegründete Selbständige, die keiner anderweitigen Pflichtversicherung unterliegen, entweder in die gesetzliche Rentenversicherung einzahlen oder eine gleichwertige private Altersvorsorge nachweisen müssen. Für bereits Selbständige gilt Bestandsschutz – sie sind von der neuen Vorsorgepflicht ausgenommen.</p>
+                    <p><em>Quelle: Deutsche Rentenversicherung</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>2. Welche Alternativen habe ich zur gesetzlichen Rentenversicherung?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Selbständige können aus verschiedenen Vorsorgemodellen wählen:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Private Rentenversicherung: Flexible Beiträge, lebenslange Rente möglich, steuerlich begünstigt.</li>
+                        <li>Rürup-Rente (Basisrente): Staatlich gefördert, besonders attraktiv für Gutverdiener; steuerlich absetzbar und insolvenzgeschützt.</li>
+                        <li>Betriebliche Altersvorsorge (bAV): Auch für Solo-Selbständige möglich (z. B. über Unterstützungskasse oder Direktversicherung).</li>
+                        <li>Fondssparen / ETF-Sparpläne: Hohe Renditechancen, aber auch höheres Risiko.</li>
+                        <li>Immobilieninvestitionen: Inflationsschutz und potenzielle Wertsteigerung; erfordern jedoch Kapital und Know-how.</li>
+                    </ul>
+                    <p><em>Quelle: Berliner Sparkasse</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>3. Wie viel sollte ich monatlich sparen, um im Alter abgesichert zu sein?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Eine Faustregel lautet: Rund 20 % des Nettoeinkommens sollten für die Altersvorsorge reserviert werden. Während die gesetzliche Rente etwa 45 % des letzten Bruttoeinkommens abdeckt, wird für einen vergleichbaren Lebensstandard im Ruhestand oft ein Bedarf von 70–80 % angenommen.</p>
+                    <p>Die konkrete Sparsumme hängt von vielen Faktoren ab, u. a. vom Renteneintrittsalter, der geplanten Lebensweise im Alter und bestehenden Vermögenswerten.</p>
+                    <p><em>Quelle: Verbraucherzentrale Berlin</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>4. Gibt es staatliche Förderungen für die private Altersvorsorge?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Ja. Folgende Förderungen und Steuervergünstigungen stehen zur Verfügung:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Rürup-Rente: Beiträge sind bis zu einem Höchstbetrag steuerlich abzugsfähig (2025: voraussichtlich über 27.000 € für Alleinstehende).</li>
+                        <li>Riester-Rente: Für Selbständige meist nur mit rentenversicherungspflichtigem Ehepartner sinnvoll; beinhaltet Grund- und Kinderzulagen.</li>
+                        <li>Betriebliche Altersvorsorge: Beiträge sind steuer- und sozialabgabenfrei, sofern bestimmte Grenzen eingehalten werden.</li>
+                    </ul>
+                    <p><em>Quelle: Bundesministerium für Arbeit und Soziales</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>5. Welche Vorteile hat eine betriebliche Altersvorsorge für Selbständige?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Auch Selbständige ohne Angestellte können eine bAV nutzen – z. B. über eine Direktversicherung. Vorteile:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Steuerliche Entlastung durch Abzugsfähigkeit der Beiträge.</li>
+                        <li>Zusätzliche Absicherung neben anderen Vorsorgeformen.</li>
+                        <li>Möglichkeit zur Kombination mit Hinterbliebenen- oder Berufsunfähigkeitsschutz.</li>
+                    </ul>
+                    <p>Die Einrichtung kann jedoch komplex sein – professionelle Beratung ist ratsam.</p>
+                    <p><em>Quelle: Berliner Sparkasse</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>6. Kann ich meine Altersvorsorge steuerlich absetzen?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Ja. Beiträge zur:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Rürup-Rente: als Sonderausgaben</li>
+                        <li>Privaten Rentenversicherung: bei nachgelagerter Besteuerung ggf. anteilig</li>
+                        <li>bAV: als Betriebsausgabe (sofern betrieblich veranlasst)</li>
+                    </ul>
+                    <p>sind unter bestimmten Voraussetzungen steuerlich begünstigt. Die konkreten Möglichkeiten sollten mit einem Steuerberater geprüft werden.</p>
+                    <p><em>Quelle: Bundesministerium für Arbeit und Soziales</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>7. Was ist die Rürup-Rente und ist sie für mich geeignet?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Die Rürup-Rente ist eine staatlich geförderte, lebenslange Rentenversicherung. Merkmale:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Hohe steuerliche Absetzbarkeit der Beiträge (bis zu rund 27.000 € jährlich).</li>
+                        <li>Pfändungssicherheit und Insolvenzschutz.</li>
+                        <li>Keine Kapitalauszahlung möglich – nur lebenslange Rente.</li>
+                        <li>Besonders lohnend für Selbständige mit hohem zu versteuerndem Einkommen.</li>
+                    </ul>
+                    <p><em>Quelle: Versicherungen mit Kopf</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>8. Wie sicher ist meine Altersvorsorge, wenn ich in Fonds investiere?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Fondssparen bietet gute Renditechancen – insbesondere bei ETFs mit breiter Streuung. Es unterliegt jedoch Marktschwankungen. Zur Risikominimierung empfiehlt sich:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Langfristige Anlagedauer</li>
+                        <li>Breite Diversifikation (z. B. weltweit gestreute ETFs)</li>
+                        <li>Kombination mit sicheren Bestandteilen wie Rürup oder Immobilien</li>
+                    </ul>
+                    <p><em>Quelle: Berliner Sparkasse</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>9. Muss ich als Selbständiger eine Altersvorsorge nachweisen, um in Berlin bleiben zu dürfen?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nein – für deutsche Staatsangehörige und EU-Bürger gibt es keine gesetzliche Verpflichtung zur Vorsorge als Wohnsitzvoraussetzung. Für Nicht-EU-Bürger, die eine Niederlassungserlaubnis in Berlin anstreben, gilt jedoch:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Nachweis einer angemessenen Altersvorsorge ist erforderlich</li>
+                        <li>z. B. über private Rentenversicherungen oder ausreichendes Vermögen</li>
+                    </ul>
+                    <p><em>Quelle: Service Berlin</em></p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>10. Welche Rolle spielt die Altersvorsorge bei der Niederlassungserlaubnis für Nicht-EU-Bürger?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Für die Erteilung oder Verlängerung der Niederlassungserlaubnis müssen Selbständige aus Drittstaaten darlegen, dass sie im Alter nicht auf staatliche Hilfe angewiesen sein werden. Gültige Nachweise sind z. B.:</p>
+                    <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                        <li>Private Rentenversicherung oder Lebensversicherung</li>
+                        <li>Betriebs- oder Immobilienvermögen</li>
+                        <li>Bankguthaben mit Rentenvorsorgecharakter</li>
+                    </ul>
+                    <p><em>Quelle: Service Berlin</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container fade-in" style="animation-delay: 0.4s;">
+        <div class="section-title">
+            <h2>Vergleich der Vorsorgemodelle</h2>
+        </div>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Option</th>
+                    <th>Vorteile</th>
+                    <th>Nachteile</th>
+                    <th>Geeignet für</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gesetzliche Rentenversicherung</td>
+                    <td>Staatlich gesichert, günstige Anlaufphase</td>
+                    <td>Geringe Rendite, wenig Flexibilität</td>
+                    <td>Pflichtversicherte oder freiwillige Einzahler</td>
+                </tr>
+                <tr>
+                    <td>Private Rentenversicherung</td>
+                    <td>Flexibel, steuerlich begünstigt</td>
+                    <td>Rendite abhängig vom Anbieter</td>
+                    <td>Selbständige mit mittlerem Einkommen</td>
+                </tr>
+                <tr>
+                    <td>Rürup-Rente</td>
+                    <td>Steuerlich attraktiv, insolvenzgeschützt</td>
+                    <td>Keine Kapitalauszahlung, lange Bindung</td>
+                    <td>Gutverdiener mit steuerlicher Optimierung</td>
+                </tr>
+                <tr>
+                    <td>Fondssparen (z. B. ETF)</td>
+                    <td>Hohe Renditechance, liquide</td>
+                    <td>Kursschwankungen, Eigenverantwortung</td>
+                    <td>Finanzaffine, risikobereite Anleger</td>
+                </tr>
+                <tr>
+                    <td>Immobilien</td>
+                    <td>Sachwert, Inflationsschutz</td>
+                    <td>Kapitalbindung, Verwaltungsaufwand</td>
+                    <td>Kapitalstarke Selbständige</td>
+                </tr>
+                <tr>
+                    <td>Betriebliche Altersvorsorge</td>
+                    <td>Steuerlich begünstigt, kombinierbar mit BU</td>
+                    <td>Komplexe Einrichtung</td>
+                    <td>Selbständige mit/ohne Mitarbeiter</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="tips-section fade-in" style="animation-delay: 0.5s;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Praktische Tipps für deine Altersvorsorge</h2>
+            </div>
+            
+            <div class="tips-container">
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Früh anfangen</h4>
+                        <p>Der Zinseszinseffekt wirkt langfristig. Je früher du mit der Altersvorsorge beginnst, desto weniger musst du monatlich zurücklegen, um deine Ziele zu erreichen.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Breit streuen</h4>
+                        <p>Kombiniere risikoarme und renditestarke Vorsorgeformen. Eine gesunde Mischung aus verschiedenen Anlageformen bietet Sicherheit und Renditechancen zugleich.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Unabhängige Beratung nutzen</h4>
+                        <p>Lass dich von unabhängigen Experten beraten, z.B. bei der Verbraucherzentrale Berlin. So stellst du sicher, dass du objektive Informationen erhältst.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-item">
+                    <div class="tip-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="tip-content">
+                        <h4>Regelmäßig prüfen</h4>
+                        <p>Passe deine Vorsorgeregelungen regelmäßig an deine aktuelle Lebens- und Einkommenssituation an. Überprüfe mindestens einmal jährlich deine Strategie.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section container fade-in" style="animation-delay: 0.6s;">
+        <h2>Noch Fragen zur Altersvorsorge?</h2>
+        <p>Unsere Experten beantworten gerne alle deine Fragen und helfen dir, eine maßgeschneiderte Lösung für deine Situation zu finden. Vereinbare jetzt ein kostenloses Erstgespräch.</p>
+        <a href="index.html#kontakt" class="btn">Termin vereinbaren</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>vorsorge.berlin</h3>
+                    <p>House of Finance and Tech Berlin GmbH<br>
+                    (HoFT Berlin GmbH)<br>
+                    c/o Spielfeld Digital Hub GmbH<br>
+                    Skalitzer Str. 85-86<br>
+                    10997 Berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <p>Tel: +49 (0)30 43974287-0<br>
+                    E-Mail: info@hoft.berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="#">Impressum</a></li>
+                        <li><a href="#">Datenschutz</a></li>
+                        <li><a href="#">AGB</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 vorsorge.berlin | House of Finance and Tech Berlin GmbH</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookie-consent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3>Hinweis zu Cookies</h3>
+                <p>Diese Website verwendet Cookies, um Ihnen ein optimales Nutzererlebnis zu bieten. Durch die weitere Nutzung unserer Website stimmen Sie der Verwendung von Cookies zu. Detaillierte Informationen zur Verwendung von Cookies finden Sie in unserer <a href="#">Datenschutzerklärung</a>.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-all-cookies" class="btn cookie-btn">Alle akzeptieren</button>
+                <button id="accept-essential-cookies" class="btn cookie-btn btn-secondary">Nur essenzielle Cookies</button>
+                <button id="cookie-settings" class="btn cookie-btn btn-secondary">Einstellungen</button>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Nach oben scrollen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const header = document.getElementById('header');
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const backToTop = document.getElementById('back-to-top');
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptAllCookies = document.getElementById('accept-all-cookies');
+            const acceptEssentialCookies = document.getElementById('accept-essential-cookies');
+            const cookieSettings = document.getElementById('cookie-settings');
+            const scrollThreshold = 100;
+            
+            // Show cookie consent
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieConsent.style.display = 'block';
+                }, 1000);
+            }
+            
+            // Cookie consent handlers
+            acceptAllCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'all');
+                cookieConsent.style.display = 'none';
+            });
+            
+            acceptEssentialCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'essential');
+                cookieConsent.style.display = 'none';
+            });
+            
+            cookieSettings.addEventListener('click', () => {
+                // In a real implementation, this would open a modal with detailed cookie settings
+                alert('In einer vollständigen Implementierung würde hier ein Modal mit detaillierten Cookie-Einstellungen geöffnet werden.');
+            });
+            
+            // Toggle mobile menu
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on nav items
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (navMenu.classList.contains('active') && 
+                    !event.target.closest('nav')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Toggle FAQ items
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close other open FAQ items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Open first FAQ item by default
+            faqItems[0].classList.add('active');
+            
+            // Scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', smoothScroll);
+            });
+            
+            // Intersection Observer for animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+            
+            // Back to top button
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Functions
+            function toggleMobileMenu(e) {
+                e.stopPropagation();
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+            
+            function closeMobileMenu() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+            
+            function handleScroll() {
+                // Smaller header on scroll
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                    backToTop.classList.add('visible');
+                } else {
+                    header.classList.remove('scrolled');
+                    backToTop.classList.remove('visible');
+                }
+            }
+            
+            function smoothScroll(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - headerHeight;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    closeMobileMenu();
+                }
+            }
+            
+            // Initialize
+            handleScroll();
+        });
+    </script>
+</body>
+</html>
