@@ -2,34 +2,6 @@
 
 ![vorsorge.berlin Logo](event.png)
 
-Eine moderne, responsive Website zur Aufklärung von Selbständigen in Berlin über das Thema Altersvorsorge. 
-
-## Überblick
-
-Diese statische Website dient als Informations- und Kommunikationsplattform für die Initiative "vorsorge.berlin" des House of Finance & Tech. Sie richtet sich speziell an Selbständige und Freiberufler in Berlin, die Unterstützung bei der Planung ihrer Altersvorsorge benötigen.
-
-## Features
-
-- **Responsives Design**: Optimiert für alle Endgeräte (Desktop, Tablet, Smartphone)
-- **Übersichtliche Struktur**: Didaktisch aufbereitete Informationen zur Altersvorsorge
-- **Interaktive Elemente**: Ausklappbare Infoboxen für Tools und Rechner
-- **5-Schritte-Prozess**: Klarer Fahrplan für die persönliche Vorsorgeplanung
-- **Community-Integration**: Optionen zur Vernetzung und zum Erfahrungsaustausch
-- **Kontaktmöglichkeiten**: Einfaches Formular zur Kontaktaufnahme
-
-## Technologien
-
-- HTML5
-- CSS3 (mit CSS-Variablen für Farbthemen)
-- Vanilla JavaScript (für interaktive Elemente)
-- Responsive Design ohne externe Frameworks
-
-## Installation
-
-Die Website benötigt keinen Webserver mit speziellen Anforderungen und kann auf jedem statischen Hosting-Dienst bereitgestellt werden.
-
-# vorsorge.berlin
-
 Eine Website, die maßgeschneiderte Lösungen für die Altersvorsorge von Selbständigen in Berlin bietet.
 
 ## Über das Projekt
@@ -57,6 +29,23 @@ vorsorge.berlin ist eine Initiative des House of Finance and Tech Berlin (HoFT B
 - `datenschutz.html` - Datenschutzerklärung
 - `impressum.html` - Impressum
 - `.github/workflows` - GitHub Workflow-Konfigurationen
+
+## Features
+
+- **Responsives Design**: Optimiert für alle Endgeräte (Desktop, Tablet, Smartphone)
+- **Übersichtliche Struktur**: Didaktisch aufbereitete Informationen zur Altersvorsorge
+- **Interaktive Elemente**: Ausklappbare Infoboxen für Tools und Rechner
+- **5-Schritte-Prozess**: Klarer Fahrplan für die persönliche Vorsorgeplanung
+- **Community-Integration**: Optionen zur Vernetzung und zum Erfahrungsaustausch
+- **Kontaktmöglichkeiten**: Einfaches Formular zur Kontaktaufnahme
+
+## Technologien
+
+- HTML5
+- CSS3 (mit CSS-Variablen für Farbthemen)
+- Vanilla JavaScript (für interaktive Elemente)
+- Responsive Design ohne externe Frameworks
+
 
 ## Betreiber
 
