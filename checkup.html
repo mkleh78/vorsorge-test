@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Altersvorsorge-Rechner für Selbständige - Berechne deine Rentenlücke und erhalte personalisierte Vorsorgeempfehlungen">
+    <meta name="theme-color" content="#e2fe6c">
+    <title>5 min Checkup für Selbständige | vorsorge.berlin</title>
+    
+    <!-- Verbesserte Favicon-Implementierung -->
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e2fe6c;
+            --primary-dark: #c7e54a;
+            --secondary: #001d6c;
+            --secondary-light: #253c8a;
+            --light: #f5f7fa;
+            --dark: #121212;
+            --gray: #cfdbf7;
+            --gray-light: #edf0f7;
+            --gray-dark: #6b7280;
+            --danger: #ff3860;
+            --success: #22c55e;
+            --warning: #ea580c;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --container-padding: clamp(1rem, 5%, 2rem);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 0.6rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span.highlight {
+            color: var(--secondary);
+            background-color: var(--primary);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            margin-left: auto;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--secondary);
+            position: absolute;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-3px);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1.5rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            z-index: 9999;
+            display: none;
+            animation: slideUp 0.5s ease forwards;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .cookie-text {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .cookie-text h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .cookie-text p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cookie-btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            min-width: auto;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.9rem 1.75rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.4;
+            min-width: 160px;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:hover::after {
+            height: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gray-light);
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            padding: 5rem 0 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 29, 108, 0.05);
+            z-index: 0;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header h1 {
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.125rem;
+            max-width: 800px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .page-header {
+                padding: 4rem 0 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                padding: 5rem 2rem 2rem;
+                z-index: 1000;
+                transition: var(--transition);
+                gap: 0;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            nav ul li a {
+                padding: 1rem 0;
+                display: block;
+            }
+            
+            .page-header {
+                padding: 3rem 0 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            :root {
+                --container-padding: 1rem;
+            }
+            
+            .page-header {
+                padding: 2.5rem 0 1.5rem;
+            }
+        }
+
+        /* Calculator Components */
+        .calculator {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 3rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--gray-light);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 9999px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Form Sections */
+        .step-content {
+            padding: 2rem;
+            display: none;
+        }
+        
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .collapsible-section:hover {
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 1rem 1.5rem;
+            background-color: white;
+            transition: var(--transition);
+        }
+        
+        .section-header:hover {
+            background-color: var(--gray-light);
+        }
+        
+        .section-header h3 {
+            display: flex;
+            align-items: center;
+            font-size: 1.125rem;
+            margin-bottom: 0;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .section-header h3 i {
+            margin-right: 0.75rem;
+            color: var(--secondary);
+            font-size: 1.25rem;
+        }
+        
+        .section-header i:last-child {
+            transition: transform 0.3s ease;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-light);
+            background-color: white;
+            display: none;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .form-label i.help {
+            margin-left: 0.5rem;
+            color: var(--secondary-light);
+            cursor: help;
+            font-size: 0.875rem;
+            position: relative;
+        }
+        
+        .tooltip {
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            padding: 0.75rem;
+            background-color: var(--secondary);
+            color: white;
+            font-size: 0.875rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            width: 250px;
+            z-index: 100;
+            display: none;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .form-input, 
+        .form-select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-input:focus, 
+        .form-select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 29, 108, 0.1);
+        }
+        
+        .form-input.error, 
+        .form-select.error {
+            border-color: var(--danger);
+        }
+        
+        .form-input.error:focus, 
+        .form-select.error:focus {
+            box-shadow: 0 0 0 3px rgba(255, 56, 96, 0.2);
+        }
+        
+        .form-checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+        
+        .checkbox-group {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .error-message i {
+            margin-right: 0.5rem;
+        }
+        
+        .help-text {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+            margin-top: 0.5rem;
+        }
+        
+        /* Form Buttons */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+        }
+        
+        .btn-right {
+            margin-left: auto;
+        }
+        
+        /* Results Section */
+        #results-container {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .result-panel {
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background-color: white;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .result-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .panel-primary {
+            border-left-color: var(--secondary);
+        }
+        
+        .panel-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .panel-title {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.25rem;
+        }
+        
+        .panel-title i {
+            margin-right: 0.75rem;
+            background-color: var(--primary);
+            color: var(--secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .result-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .result-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .result-list li i {
+            color: var(--success);
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+        
+        .result-row {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .result-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight {
+            color: var(--warning);
+            font-weight: 700;
+        }
+        
+        /* Score Bar */
+        .progress-score {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-bar {
+            flex-grow: 1;
+            height: 12px;
+            background-color: var(--gray-light);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .score-fill {
+            height: 100%;
+            background-color: var(--secondary);
+            border-radius: 9999px;
+            transition: width 1s ease;
+        }
+        
+        /* Strategy Grid */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .strategy-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .strategy-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .strategy-item {
+            background-color: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-top: 3px solid var(--gray);
+        }
+        
+        .strategy-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .strategy-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .strategy-badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .badge-green {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #166534;
+        }
+        
+        .badge-yellow {
+            background-color: rgba(234, 179, 8, 0.15);
+            color: #854d0e;
+        }
+        
+        .badge-red {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #991b1b;
+        }
+        
+        .badge-gray {
+            background-color: rgba(107, 114, 128, 0.15);
+            color: #374151;
+        }
+        
+        /* Recommendations */
+        .recommendations {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin-top: 2.5rem;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .recommendations h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .recommendations h3 i {
+            margin-right: 0.75rem;
+            background-color: var(--primary);
+            color: var(--secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .recommendation-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .recommendation-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .recommendation-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .recommendation-list li i {
+            color: var(--warning);
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+        
+        /* Calculator Footer */
+        .calculator-footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--gray-light);
+            background-color: var(--gray-light);
+        }
+        
+        .calculator-footer p {
+            margin-bottom: 0.5rem;
+            color: var(--gray-dark);
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive Adjustments for Calculator */
+        @media (max-width: 768px) {
+            .step-content {
+                padding: 1.5rem;
+            }
+            
+            .section-content.active {
+                padding: 1rem;
+            }
+            
+            .result-panel {
+                padding: 1.5rem;
+            }
+            
+            .recommendations {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                min-width: auto;
+                padding: 0.75rem 1.25rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-header h3 {
+                font-size: 1rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .btn-right {
+                margin-left: 0;
+            }
+            
+            .btn-prev {
+                order: 2;
+            }
+            
+            .btn-next {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="highlight">HT</span> vorsorge.berlin
+                </a>
+                <nav>
+                    <div class="hamburger" id="hamburger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="nav-menu">
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="index.html#kontakt">Kontakt</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <header class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>5 min Checkup für Selbständige</h1>
+                <p>Analysiere deine Vorsorgesituation in nur 5 Minuten und erhalte individuelle Empfehlungen für deine finanzielle Zukunft.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="form-container" class="calculator">
+            <div class="progress-container">
+                <div class="progress-labels">
+                    <span class="progress-label">Fortschritt</span>
+                    <span class="progress-percentage" id="progress-percentage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <form id="altersvorsorge-form">
+                <!-- Step 1: Bestehende Altersvorsorge -->
+                <div class="step-content active" id="step-1">
+                    <h2 class="section-title">1. Bestehende Altersvorsorge</h2>
+                    
+                    <!-- Gesetzliche Rentenversicherung -->
+                    <div class="collapsible-section">
+                        <div class="section-header" data-section="gesetzlich">
+                            <h3><i class="fas fa-building"></i> Gesetzliche Rentenversicherung</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="section-content active" id="section-gesetzlich">
+                            <div class="form-group">
+                                <div class="form-label">
+                                    <label for="versicherungsArt">Art der Versicherung</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Gibt an, ob Sie in die gesetzliche Rentenversicherung einzahlen und in welcher Form."></i>
+                                    <div class="tooltip"></div>
+                                </div>
+                                <select id="versicherungsArt" name="versicherungsArt" class="form-select">
+                                    <option value="">Bitte wählen</option>
+                                    <option value="Pflichtversichert">Pflichtversichert</option>
+                                    <option value="Freiwillig versichert">Freiwillig versichert</option>
+                                    <option value="Nicht versichert">Nicht versichert</option>
+                                </select>
+                                <div class="error-message" id="error-versicherungsArt" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i> Bitte wählen Sie die Art der Versicherung aus
+                                </div>
+                                <div class="help-text">Pflichtversichert = z.B. als Handwerker, freiwillig = eigene Einzahlung, nicht versichert = keine Beiträge</div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label">
+                                    <label for="rentenHöhe">Bisher erworbene Rente (€/Monat)</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Die bisher von Ihnen erworbene monatliche Rente laut Ihrer Renteninformation der Deutschen Rentenversicherung."></i>
+                                </div>
+                                <input type="number" id="rentenHöhe" name="rentenHöhe" class="form-input" placeholder="0" min="0" step="10">
+                                <div class="help-text">Zu finden in Ihrer Renteninformation der DRV</div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="freiwilligeEinzahlung" name="freiwilligeEinzahlung" class="form-checkbox">
+                                    <label for="freiwilligeEinzahlung">Freiwillige Einzahlung in Betracht gezogen</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Selbständige können freiwillig in die gesetzliche Rentenversicherung einzahlen, um Rentenansprüche zu erwerben."></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Private Altersvorsorge -->
+                    <div class="collapsible-section">
+                        <div class="section-header" data-section="privat">
+                            <h3><i class="fas fa-wallet"></i> Private Altersvorsorge</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="section-content" id="section-privat">
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="privateRente" name="privateRente" class="form-checkbox">
+                                    <label for="privateRente">Private Rentenversicherung vorhanden</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Private Rentenversicherungen sind Vorsorgeverträge, die eine lebenslange Rente im Alter garantieren."></i>
+                                </div>
+                            </div>
+                            
+                            <div id="privateRenteDetails" style="display: none;">
+                                <div class="form-group">
+                                    <div class="form-label">
+                                        <label for="privateRenteVerzinsung">Garantierte Verzinsung (%)</label>
+                                        <i class="fas fa-question-circle help" data-tooltip="Der garantierte Zinssatz, mit dem Ihr Kapital in der privaten Rentenversicherung verzinst wird."></i>
+                                    </div>
+                                    <input type="number" id="privateRenteVerzinsung" name="privateRenteVerzinsung" class="form-input" placeholder="0" min="0" step="0.1">
+                                    <div class="help-text">Der in Ihrem Vertrag garantierte Zinssatz (meist zwischen 0,25% und 3,5%)</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-label">
+                                        <label for="privateRenteKosten">Jährliche Kosten (%)</label>
+                                        <i class="fas fa-question-circle help" data-tooltip="Die jährlichen Verwaltungs- und Abschlusskosten der privaten Rentenversicherung in Prozent."></i>
+                                    </div>
+                                    <input type="number" id="privateRenteKosten" name="privateRenteKosten" class="form-input" placeholder="0" min="0" step="0.1">
+                                    <div class="help-text">Gesamtkosten inkl. Abschluss- und Verwaltungskosten (meist zwischen 1,5% und 3%)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="etfSparpläne" name="etfSparpläne" class="form-checkbox">
+                                    <label for="etfSparpläne">ETF-/Fonds-Sparpläne vorhanden</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="ETF-Sparpläne investieren regelmäßig in börsengehandelte Indexfonds und bieten Renditechancen bei höherem Risiko."></i>
+                                </div>
+                            </div>
+                            
+                            <div id="etfDetails" style="display: none;">
+                                <div class="form-group">
+                                    <div class="form-label">
+                                        <label for="etfSparplanBetrag">Monatlicher Sparbetrag (€)</label>
+                                        <i class="fas fa-question-circle help" data-tooltip="Der monatliche Betrag, den Sie in ETF- oder Fondssparpläne investieren."></i>
+                                    </div>
+                                    <input type="number" id="etfSparplanBetrag" name="etfSparplanBetrag" class="form-input" placeholder="0" min="0" step="10">
+                                    <div class="error-message" id="error-etfSparplanBetrag" style="display: none;">
+                                        <i class="fas fa-exclamation-circle"></i> Bitte geben Sie einen gültigen Betrag ein
+                                    </div>
+                                    <div class="help-text">Gesamtbetrag aller regelmäßigen Sparplanraten</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="rürupRente" name="rürupRente" class="form-checkbox">
+                                    <label for="rürupRente">Rürup-Rente (Basisrente) vorhanden</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Die Basisrente (Rürup) ist eine staatlich geförderte private Altersvorsorge für Selbständige mit steuerlichen Vorteilen."></i>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="riesterRente" name="riesterRente" class="form-checkbox">
+                                    <label for="riesterRente">Riester-Rente vorhanden</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Die Riester-Rente ist eine staatlich geförderte private Altersvorsorge mit Zulagen und Steuervorteilen."></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Betriebliche Altersvorsorge -->
+                    <div class="collapsible-section">
+                        <div class="section-header" data-section="betrieblich">
+                            <h3><i class="fas fa-building"></i> Betriebliche Altersvorsorge</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="section-content" id="section-betrieblich">
+                            <p class="help-text" style="margin-bottom: 1.5rem;">Falls relevant für Ihre Situation als Selbständige/r:</p>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="direktversicherung" name="direktversicherung" class="form-checkbox">
+                                    <label for="direktversicherung">Direktversicherung über eigene Firma</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Eine Direktversicherung ist eine betriebliche Altersvorsorge, die der Arbeitgeber für den Arbeitnehmer abschließt."></i>
+                                </div>
+                                <div class="help-text">Eine Lebensversicherung, die über Ihre GmbH oder UG abgeschlossen wurde</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="unterstützungskasse" name="unterstützungskasse" class="form-checkbox">
+                                    <label for="unterstützungskasse">Unterstützungskasse über eigene Firma</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Die Unterstützungskasse ist eine Form der betrieblichen Altersvorsorge für Geschäftsführer oder leitende Angestellte."></i>
+                                </div>
+                                <div class="help-text">Eine Versorgungseinrichtung für Geschäftsführer oder leitende Angestellte</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="pensionskasse" name="pensionskasse" class="form-checkbox">
+                                    <label for="pensionskasse">Pensionskasse</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Eine Pensionskasse ist ein Versorgungswerk, das Betriebsrenten für die Mitarbeiter von Unternehmen verwaltet."></i>
+                                </div>
+                                <div class="help-text">Mitglied in einer branchenspezifischen Pensionskasse</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="versorgungswerk" name="versorgungswerk" class="form-checkbox">
+                                    <label for="versorgungswerk">Versorgungswerk</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Versorgungswerke sind berufsständische Organisationen, die die Altersvorsorge für bestimmte Berufsgruppen übernehmen."></i>
+                                </div>
+                                <div class="help-text">Mitglied in einem berufsständischen Versorgungswerk (z.B. für Ärzte, Rechtsanwälte)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Immobilien als Altersvorsorge -->
+                    <div class="collapsible-section">
+                        <div class="section-header" data-section="immobilien">
+                            <h3><i class="fas fa-home"></i> Immobilien als Altersvorsorge</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="section-content" id="section-immobilien">
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="wohneigentum" name="wohneigentum" class="form-checkbox">
+                                    <label for="wohneigentum">Selbstgenutztes Wohneigentum vorhanden</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Selbstgenutztes Wohneigentum kann im Alter für Mietersparnis sorgen und das verfügbare Einkommen erhöhen."></i>
+                                </div>
+                                <div class="help-text">Eigene Immobilie, in der Sie selbst wohnen</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="vermietet" name="vermietet" class="form-checkbox">
+                                    <label for="vermietet">Vermietete Immobilien vorhanden</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Vermietete Immobilien können im Alter einen zusätzlichen Einkommensstrom generieren."></i>
+                                </div>
+                                <div class="help-text">Immobilien, die Sie zur Kapitalanlage vermieten</div>
+                            </div>
+                            
+                            <div id="immobilienDetails" style="display: none;">
+                                <div class="form-group">
+                                    <div class="form-label">
+                                        <label for="immobilienWert">Geschätzter Gesamtwert der Immobilien (€)</label>
+                                        <i class="fas fa-question-circle help" data-tooltip="Der aktuelle Marktwert Ihrer Immobilien, basierend auf vergleichbaren Objekten in Ihrer Region."></i>
+                                    </div>
+                                    <input type="number" id="immobilienWert" name="immobilienWert" class="form-input" placeholder="0" min="0" step="10000">
+                                    <div class="error-message" id="error-immobilienWert" style="display: none;">
+                                        <i class="fas fa-exclamation-circle"></i> Bitte geben Sie einen gültigen Immobilienwert ein
+                                    </div>
+                                    <div class="help-text">Aktueller Marktwert aller Immobilien zusammen</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="form-label">
+                                        <label for="kredite">Höhe der laufenden Kredite (€)</label>
+                                        <i class="fas fa-question-circle help" data-tooltip="Die Summe aller noch offenen Immobilienkredite und Hypotheken."></i>
+                                    </div>
+                                    <input type="number" id="kredite" name="kredite" class="form-input" placeholder="0" min="0" step="10000">
+                                    <div class="help-text">Summe aller noch ausstehenden Immobilienkredite</div>
+                                </div>
+                                
+                                <div id="mietrenditeGroup" class="form-group" style="display: none;">
+                                    <div class="form-label">
+                                        <label for="mietrendite">Mietrendite (% p.a.)</label>
+                                        <i class="fas fa-question-circle help" data-tooltip="Die jährliche Rendite Ihrer vermieteten Immobilien, berechnet als (Jahresmiete - Kosten) / Immobilienwert * 100."></i>
+                                    </div>
+                                    <input type="number" id="mietrendite" name="mietrendite" class="form-input" placeholder="0" min="0" max="15" step="0.1">
+                                    <div class="help-text">Jährliche Nettomieteinnahmen geteilt durch Immobilienwert mal 100</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Einnahmen & Steuerliche Situation -->
+                <div class="step-content" id="step-2">
+                    <h2 class="section-title">2. Einnahmen & Steuerliche Situation</h2>
+                    
+                    <div class="collapsible-section">
+                        <div class="section-header" data-section="einnahmen">
+                            <h3><i class="fas fa-chart-line"></i> Einnahmen & Steuerliche Situation</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="section-content active" id="section-einnahmen">
+                            <div class="form-group">
+                                <div class="form-label">
+                                    <label for="jährlicheEinkünfte">Jährliche Einkünfte (€)</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Ihr zu versteuerndes Jahreseinkommen vor Steuern und Abgaben."></i>
+                                </div>
+                                <input type="number" id="jährlicheEinkünfte" name="jährlicheEinkünfte" class="form-input" placeholder="0" min="0" step="1000">
+                                <div class="error-message" id="error-jährlicheEinkünfte" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i> Bitte geben Sie Ihre jährlichen Einkünfte an
+                                </div>
+                                <div class="help-text">Brutto-Gewinn aus Selbstständigkeit oder Gehalt bei eigener GmbH</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="form-label">
+                                    <label for="monatlicheRücklage">Monatliche Rücklage für Altersvorsorge (€)</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Der Betrag, den Sie monatlich für Ihre Altersvorsorge zurücklegen."></i>
+                                </div>
+                                <input type="number" id="monatlicheRücklage" name="monatlicheRücklage" class="form-input" placeholder="0" min="0" step="50">
+                                <div class="error-message" id="error-monatlicheRücklage" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i> Bitte geben Sie Ihre monatliche Rücklage an
+                                </div>
+                                <div class="help-text">Richtwert: 10–30% des Einkommens</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="form-label">
+                                    <label>Steuerlich absetzbare Altersvorsorge</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Altersvorsorgeprodukte, die Sie steuerlich geltend machen können, um Ihre Steuerlast zu reduzieren."></i>
+                                </div>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-label">
+                                        <input type="checkbox" id="steuer_rürup" name="steuerAbsetzung" value="Rürup-Rente" class="form-checkbox">
+                                        <label for="steuer_rürup">Rürup-Rente</label>
+                                    </div>
+                                    <div class="checkbox-label">
+                                        <input type="checkbox" id="steuer_drv" name="steuerAbsetzung" value="Freiwillige DRV-Einzahlungen" class="form-checkbox">
+                                        <label for="steuer_drv">Freiwillige DRV-Einzahlungen</label>
+                                    </div>
+                                    <div class="checkbox-label">
+                                        <input type="checkbox" id="steuer_bav" name="steuerAbsetzung" value="Betriebliche Altersvorsorge" class="form-checkbox">
+                                        <label for="steuer_bav">Betriebliche Altersvorsorge</label>
+                                    </div>
+                                    <div class="checkbox-label">
+                                        <input type="checkbox" id="steuer_prv" name="steuerAbsetzung" value="Private Rentenversicherung" class="form-checkbox">
+                                        <label for="steuer_prv">Private Rentenversicherung</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="checkbox-label">
+                                    <input type="checkbox" id="höchstbeträgeAusgeschöpft" name="höchstbeträgeAusgeschöpft" class="form-checkbox">
+                                    <label for="höchstbeträgeAusgeschöpft">Steuerliche Höchstbeträge bereits ausgeschöpft</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Sie können jährlich bis zu 27.566 € (Ledige) bzw. 55.132 € (Verheiratete) für Basisrente oder freiwillige DRV-Beiträge steuerlich absetzen."></i>
+                                </div>
+                                <div class="help-text">Für 2025: Rürup bis 27.566 € bei Ledigen, 55.132 € bei Verheirateten</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Rentenlücke berechnen -->
+                <div class="step-content" id="step-3">
+                    <h2 class="section-title">3. Rentenlücke berechnen</h2>
+                    
+                    <div class="collapsible-section">
+                        <div class="section-header" data-section="rentenlücke">
+                            <h3><i class="fas fa-calculator"></i> Rentenlücke berechnen</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="section-content active" id="section-rentenlücke">
+                            <div class="form-group">
+                                <div class="form-label">
+                                    <label for="geschätzteRente">Geschätzte monatliche Rente (gesetzlich + privat) in €</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Die voraussichtliche monatliche Rente aus allen Ihren Vorsorgebausteinen (gesetzlich, privat, betrieblich)."></i>
+                                </div>
+                                <input type="number" id="geschätzteRente" name="geschätzteRente" class="form-input" placeholder="0" min="0" step="50">
+                                <div class="error-message" id="error-geschätzteRente" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i> Bitte geben Sie Ihre geschätzte monatliche Rente an
+                                </div>
+                                <div class="help-text">Nutzen Sie ggf. Online-Rechner wie den Finanztip Rentenrechner</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="form-label">
+                                    <label for="gewünschtesEinkommen">Gewünschtes monatliches Netto-Einkommen im Alter (€)</label>
+                                    <i class="fas fa-question-circle help" data-tooltip="Das monatliche Nettoeinkommen, das Sie im Ruhestand zur Verfügung haben möchten."></i>
+                                </div>
+                                <input type="number" id="gewünschtesEinkommen" name="gewünschtesEinkommen" class="form-input" placeholder="0" min="0" step="100">
+                                <div class="error-message" id="error-gewünschtesEinkommen" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i> Bitte geben Sie Ihr gewünschtes Einkommen im Alter an
+                                </div>
+                                <div class="help-text">Betrag, den Sie monatlich im Ruhestand zur Verfügung haben möchten</div>
+                            </div>
+                            
+                            <div class="mt-4 p-4 bg-blue-50 rounded" style="background-color: var(--gray-light); padding: 1.5rem; border-radius: var(--radius-md); margin-top: 1.5rem;">
+                                <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--secondary);">
+                                    Faustregel zur Berechnung des benötigten Kapitals:
+                                </p>
+                                <p style="color: var(--secondary-light); margin-bottom: 0;">
+                                    Jährlicher Zusatzbedarf × 25 = benötigtes Kapital<br>
+                                    Beispiel: 500 € monatliche Rentenlücke × 12 Monate × 25 = 150.000 € benötigtes Kapital
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button type="button" id="btn-prev" class="btn btn-secondary btn-prev" style="display: none;">Zurück</button>
+                    <button type="button" id="btn-next" class="btn btn-primary btn-next btn-right">Weiter</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-container" class="calculator">
+            <div style="padding: 2rem;">
+                <h2 class="section-title">Deine Altersvorsorge im Überblick</h2>
+                
+                <div class="results-grid">
+                    <div class="result-panel panel-primary">
+                        <h3 class="panel-title">
+                            <i class="fas fa-wallet"></i>
+                            Aktuelle Situation
+                        </h3>
+                        <ul class="result-list" id="situation-list">
+                            <!-- Will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                    
+                    <div class="result-panel panel-warning">
+                        <h3 class="panel-title">
+                            <i class="fas fa-calculator"></i>
+                            Rentenlücke
+                        </h3>
+                        <div id="gap-results">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="section-title">Deine Altersvorsorgestrategie</h3>
+                    <div class="progress-score">
+                        <div class="score-bar">
+                            <div class="score-fill" id="score-fill" style="width: 0%"></div>
+                        </div>
+                        <span style="font-weight: 700; font-size: 1.125rem;" id="score-percentage">0%</span>
+                    </div>
+                    
+                    <div class="strategy-grid" id="strategy-grid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="recommendations">
+                    <h3>
+                        <i class="fas fa-lightbulb"></i>
+                        Personalisierte Empfehlungen
+                    </h3>
+                    <ul class="recommendation-list" id="recommendation-list">
+                        <!-- Will be populated by JavaScript -->
+                    </ul>
+                </div>
+                
+                <div style="margin-top: 2.5rem; text-align: center;">
+                    <button type="button" id="btn-restart" class="btn btn-primary">
+                        Neue Berechnung starten
+                    </button>
+                </div>
+            </div>
+            
+            <div class="calculator-footer">
+                <p>© 2025 vorsorge.berlin | House of Finance & Tech Berlin</p>
+                <p>Diese Analyse ersetzt keine professionelle Finanzberatung. Alle Angaben ohne Gewähr.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>vorsorge.berlin</h3>
+                    <p>House of Finance and Tech Berlin GmbH<br>
+                    (HoFT Berlin GmbH)<br>
+                    c/o Spielfeld Digital Hub GmbH<br>
+                    Skalitzer Str. 85-86<br>
+                    10997 Berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <p>Tel: +49 (0)30 43974287-0<br>
+                    E-Mail: info@hoft.berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="datenschutz.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 vorsorge.berlin | House of Finance and Tech Berlin GmbH</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookie-consent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3>Hinweis zu Cookies</h3>
+                <p>Diese Website verwendet Cookies, um Ihnen ein optimales Nutzererlebnis zu bieten. Durch die weitere Nutzung unserer Website stimmen Sie der Verwendung von Cookies zu. Detaillierte Informationen zur Verwendung von Cookies finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-all-cookies" class="btn cookie-btn">Alle akzeptieren</button>
+                <button id="accept-essential-cookies" class="btn cookie-btn btn-secondary">Nur essenzielle Cookies</button>
+                <button id="cookie-settings" class="btn cookie-btn btn-secondary">Einstellungen</button>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Nach oben scrollen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+        
+        function initializeApp() {
+            // Show cookie consent
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieConsent.style.display = 'block';
+                }, 1000);
+            }
+            
+            // Cookie consent handlers
+            acceptAllCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'all');
+                cookieConsent.style.display = 'none';
+            });
+            
+            acceptEssentialCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'essential');
+                cookieConsent.style.display = 'none';
+            });
+            
+            cookieSettings.addEventListener('click', () => {
+                // In a real implementation, this would open a modal with detailed cookie settings
+                alert('In einer vollständigen Implementierung würde hier ein Modal mit detaillierten Cookie-Einstellungen geöffnet werden.');
+            });
+            
+            // Toggle mobile menu
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on nav items
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (navMenu.classList.contains('active') && 
+                    !event.target.closest('nav')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Back to top button
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Initialize
+            handleScroll();
+            updateProgress();
+            
+            // Set initial state of section headers
+            sectionHeaders.forEach(header => {
+                const sectionId = header.getAttribute('data-section');
+                const content = document.getElementById(`section-${sectionId}`);
+                
+                // Set initial chevron direction
+                if (content.classList.contains('active')) {
+                    header.querySelector('i:last-child').classList.replace('fa-chevron-down', 'fa-chevron-up');
+                } else {
+                    header.querySelector('i:last-child').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                }
+            });
+            
+            // Set up form navigation
+            btnNext.addEventListener('click', () => {
+                gatherFormData();
+                
+                if (validateCurrentStep()) {
+                    if (currentStep < totalSteps) {
+                        goToStep(currentStep + 1);
+                    } else {
+                        showResults();
+                    }
+                }
+            });
+
+            btnPrev.addEventListener('click', () => {
+                if (currentStep > 1) {
+                    goToStep(currentStep - 1);
+                }
+            });
+
+            btnRestart.addEventListener('click', resetForm);
+        }
+        
+        // Form Data Object
+        let formData = {
+            // Gesetzliche Rentenversicherung
+            versicherungsArt: '',
+            rentenHöhe: '',
+            freiwilligeEinzahlung: false,
+            
+            // Private Altersvorsorge
+            privateRente: false,
+            privateRenteVerzinsung: '',
+            privateRenteKosten: '',
+            etfSparpläne: false,
+            etfSparplanBetrag: '',
+            rürupRente: false,
+            riesterRente: false,
+            
+            // Betriebliche Altersvorsorge
+            direktversicherung: false,
+            unterstützungskasse: false,
+            pensionskasse: false,
+            versorgungswerk: false,
+            
+            // Immobilien
+            wohneigentum: false,
+            vermietet: false,
+            immobilienWert: '',
+            kredite: '',
+            mietrendite: '',
+            
+            // Einnahmen & Steuer
+            jährlicheEinkünfte: '',
+            monatlicheRücklage: '',
+            steuerAbsetzung: [],
+            höchstbeträgeAusgeschöpft: false,
+            
+            // Rentenlücke
+            geschätzteRente: '',
+            gewünschtesEinkommen: '',
+            rentenlücke: 0,
+            benötigtesKapital: 0
+        };
+
+        // Current step in the form
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        // DOM Elements
+        const formContainer = document.getElementById('form-container');
+        const resultsContainer = document.getElementById('results-container');
+        const progressBar = document.getElementById('progress-bar-fill');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const btnRestart = document.getElementById('btn-restart');
+        const header = document.getElementById('header');
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+        const backToTop = document.getElementById('back-to-top');
+        const cookieConsent = document.getElementById('cookie-consent');
+        const acceptAllCookies = document.getElementById('accept-all-cookies');
+        const acceptEssentialCookies = document.getElementById('accept-essential-cookies');
+        const cookieSettings = document.getElementById('cookie-settings');
+        const scrollThreshold = 100;
+
+        // Tooltips
+        const tooltipTriggers = document.querySelectorAll('.help');
+        tooltipTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => {
+                const tooltip = trigger.nextElementSibling;
+                if (tooltip && tooltip.classList.contains('tooltip')) {
+                    tooltip.textContent = trigger.getAttribute('data-tooltip');
+                    tooltip.style.display = 'block';
+                }
+            });
+
+            trigger.addEventListener('mouseleave', () => {
+                const tooltip = trigger.nextElementSibling;
+                if (tooltip && tooltip.classList.contains('tooltip')) {
+                    tooltip.style.display = 'none';
+                }
+            });
+        });
+
+        // Collapsible Sections
+        const sectionHeaders = document.querySelectorAll('.section-header');
+        sectionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const sectionId = header.getAttribute('data-section');
+                const content = document.getElementById(`section-${sectionId}`);
+                
+                if (content.classList.contains('active')) {
+                    content.classList.remove('active');
+                    header.querySelector('i:last-child').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                } else {
+                    content.classList.add('active');
+                    header.querySelector('i:last-child').classList.replace('fa-chevron-down', 'fa-chevron-up');
+                }
+            });
+        });
+
+        // Form Input Handlers
+        document.getElementById('privateRente').addEventListener('change', function() {
+            document.getElementById('privateRenteDetails').style.display = this.checked ? 'block' : 'none';
+            formData.privateRente = this.checked;
+        });
+
+        document.getElementById('etfSparpläne').addEventListener('change', function() {
+            document.getElementById('etfDetails').style.display = this.checked ? 'block' : 'none';
+            formData.etfSparpläne = this.checked;
+        });
+
+        document.getElementById('wohneigentum').addEventListener('change', function() {
+            updateImmobilienDetails();
+            formData.wohneigentum = this.checked;
+        });
+
+        document.getElementById('vermietet').addEventListener('change', function() {
+            updateImmobilienDetails();
+            document.getElementById('mietrenditeGroup').style.display = this.checked ? 'block' : 'none';
+            formData.vermietet = this.checked;
+        });
+
+        function updateImmobilienDetails() {
+            const wohneigentum = document.getElementById('wohneigentum').checked;
+            const vermietet = document.getElementById('vermietet').checked;
+            document.getElementById('immobilienDetails').style.display = (wohneigentum || vermietet) ? 'block' : 'none';
+        }
+
+        // Get checkbox values for steuerAbsetzung
+        function updateSteuerAbsetzung() {
+            const checkboxes = document.querySelectorAll('input[name="steuerAbsetzung"]:checked');
+            formData.steuerAbsetzung = Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentStep - 1) / totalSteps) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.textContent = `${Math.round(progress)}%`;
+        }
+
+        // Form validation for each step
+        function validateCurrentStep() {
+            let isValid = true;
+            const errors = {};
+
+            if (currentStep === 1) {
+                // Validate Step 1
+                if (!formData.versicherungsArt) {
+                    errors.versicherungsArt = true;
+                    isValid = false;
+                }
+
+                if (formData.etfSparpläne && (!formData.etfSparplanBetrag || isNaN(parseFloat(formData.etfSparplanBetrag)))) {
+                    errors.etfSparplanBetrag = true;
+                    isValid = false;
+                }
+
+                if ((formData.wohneigentum || formData.vermietet) && (!formData.immobilienWert || isNaN(parseFloat(formData.immobilienWert)))) {
+                    errors.immobilienWert = true;
+                    isValid = false;
+                }
+            } else if (currentStep === 2) {
+                // Validate Step 2
+                if (!formData.jährlicheEinkünfte || isNaN(parseFloat(formData.jährlicheEinkünfte))) {
+                    errors.jährlicheEinkünfte = true;
+                    isValid = false;
+                }
+
+                if (!formData.monatlicheRücklage || isNaN(parseFloat(formData.monatlicheRücklage))) {
+                    errors.monatlicheRücklage = true;
+                    isValid = false;
+                }
+            } else if (currentStep === 3) {
+                // Validate Step 3
+                if (!formData.geschätzteRente || isNaN(parseFloat(formData.geschätzteRente))) {
+                    errors.geschätzteRente = true;
+                    isValid = false;
+                }
+
+                if (!formData.gewünschtesEinkommen || isNaN(parseFloat(formData.gewünschtesEinkommen))) {
+                    errors.gewünschtesEinkommen = true;
+                    isValid = false;
+                }
+            }
+
+            // Display error messages
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(el => {
+                el.style.display = 'none';
+            });
+
+            Object.keys(errors).forEach(fieldName => {
+                const errorElement = document.getElementById(`error-${fieldName}`);
+                if (errorElement) {
+                    errorElement.style.display = 'flex';
+                    document.getElementById(fieldName).classList.add('error');
+                }
+            });
+
+            return isValid;
+        }
+
+        // Navigation between steps
+        function goToStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show current step
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            // Update navigation buttons
+            btnPrev.style.display = step > 1 ? 'block' : 'none';
+            btnNext.textContent = step < totalSteps ? 'Weiter' : 'Ergebnisse anzeigen';
+            
+            // Update progress
+            currentStep = step;
+            updateProgress();
+            
+            // Scroll to top of the form
+            formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Calculate retirement gap
+        function calculateRetirementGap() {
+            const monatlicheRente = parseFloat(formData.geschätzteRente) || 0;
+            const gewünschtesEinkommen = parseFloat(formData.gewünschtesEinkommen) || 0;
+            
+            const rentenlücke = Math.max(0, gewünschtesEinkommen - monatlicheRente);
+            const benötigtesKapital = rentenlücke * 12 * 25; // Faustregel: Jährlicher Bedarf x 25
+            
+            formData.rentenlücke = rentenlücke;
+            formData.benötigtesKapital = benötigtesKapital;
+        }
+
+        // Calculate retirement strategy score
+        function calculateVorsorgeScore() {
+            let score = 0;
+            
+            // Gesetzliche Rente
+            if (formData.versicherungsArt) score += 20;
+            
+            // Private Vorsorge
+            if (formData.privateRente || formData.etfSparpläne || formData.rürupRente || formData.riesterRente) score += 20;
+            
+            // Betriebliche Vorsorge
+            if (formData.direktversicherung || formData.unterstützungskasse || formData.pensionskasse || formData.versorgungswerk) score += 15;
+            
+            // Immobilien
+            if (formData.wohneigentum || formData.vermietet) score += 15;
+            
+            // Sparquote
+            const sparquote = getPercentage(formData.monatlicheRücklage, formData.jährlicheEinkünfte);
+            if (sparquote >= 20) score += 20;
+            else if (sparquote >= 10) score += 15;
+            else if (sparquote >= 5) score += 5;
+            
+            // Steueroptimierung
+            if (formData.höchstbeträgeAusgeschöpft) score += 10;
+            
+            return score;
+        }
+
+        // Calculate percentage of monthly savings compared to yearly income
+        function getPercentage(monthly, yearly) {
+            if (!monthly || !yearly) return 0;
+            const monthlyValue = parseFloat(monthly);
+            const yearlyValue = parseFloat(yearly);
+            if (isNaN(monthlyValue) || isNaN(yearlyValue) || yearlyValue === 0) return 0;
+            
+            return Math.round((monthlyValue * 12 / yearlyValue) * 100);
+        }
+
+        // Display results
+        function showResults() {
+            // Calculate retirement gap and score
+            calculateRetirementGap();
+            const score = calculateVorsorgeScore();
+            
+            // Update situation list
+            const situationList = document.getElementById('situation-list');
+            situationList.innerHTML = '';
+            
+            if (formData.versicherungsArt) {
+                addResultItem(situationList, `Rentenversicherung: ${formData.versicherungsArt}`);
+            }
+            
+            if (formData.rentenHöhe) {
+                addResultItem(situationList, `Erworbene Rente: ${parseFloat(formData.rentenHöhe).toLocaleString('de-DE')} €/Monat`);
+            }
+            
+            if (formData.privateRente) {
+                addResultItem(situationList, 'Private Rentenversicherung');
+            }
+            
+            if (formData.etfSparpläne && formData.etfSparplanBetrag) {
+                addResultItem(situationList, `ETF-/Fondssparpläne: ${parseFloat(formData.etfSparplanBetrag).toLocaleString('de-DE')} €/Monat`);
+            }
+            
+            if (formData.rürupRente) {
+                addResultItem(situationList, 'Rürup-Rente');
+            }
+            
+            if (formData.riesterRente) {
+                addResultItem(situationList, 'Riester-Rente');
+            }
+            
+            if (formData.direktversicherung || formData.unterstützungskasse || formData.pensionskasse || formData.versorgungswerk) {
+                addResultItem(situationList, 'Betriebliche Altersvorsorge');
+            }
+            
+            if ((formData.wohneigentum || formData.vermietet) && formData.immobilienWert) {
+                addResultItem(situationList, `Immobilienvermögen: ${parseFloat(formData.immobilienWert).toLocaleString('de-DE')} €`);
+            }
+            
+            // Update gap results
+            const gapResults = document.getElementById('gap-results');
+            gapResults.innerHTML = `
+                <p class="result-row"><span style="font-weight: 500;">Geschätzte monatliche Rente:</span> ${parseFloat(formData.geschätzteRente).toLocaleString('de-DE')} €</p>
+                <p class="result-row"><span style="font-weight: 500;">Gewünschtes Einkommen:</span> ${parseFloat(formData.gewünschtesEinkommen).toLocaleString('de-DE')} €</p>
+                <p class="result-row highlight">Monatliche Rentenlücke: ${formData.rentenlücke.toLocaleString('de-DE')} €</p>
+                <p class="result-row highlight">Benötigtes Kapital: ${formData.benötigtesKapital.toLocaleString('de-DE')} €</p>
+            `;
+            
+            // Update score
+            document.getElementById('score-fill').style.width = `${score}%`;
+            document.getElementById('score-percentage').textContent = `${score}%`;
+            
+            // Update strategy grid
+            const strategyGrid = document.getElementById('strategy-grid');
+            strategyGrid.innerHTML = '';
+            
+            // Gesetzliche Rente
+            addStrategyItem(
+                strategyGrid, 
+                'Gesetzliche Rente',
+                formData.versicherungsArt ? 'Vorhanden' : 'Prüfen',
+                formData.versicherungsArt ? 'badge-green' : 'badge-yellow'
+            );
+            
+            // Private Vorsorge
+            addStrategyItem(
+                strategyGrid,
+                'Private Vorsorge',
+                (formData.privateRente || formData.etfSparpläne || formData.rürupRente || formData.riesterRente) ? 'Vorhanden' : 'Empfohlen',
+                (formData.privateRente || formData.etfSparpläne || formData.rürupRente || formData.riesterRente) ? 'badge-green' : 'badge-red'
+            );
+            
+            // Betriebliche Vorsorge
+            addStrategyItem(
+                strategyGrid,
+                'Betriebliche Vorsorge',
+                (formData.direktversicherung || formData.unterstützungskasse || formData.pensionskasse || formData.versorgungswerk) ? 'Vorhanden' : 'Optional',
+                (formData.direktversicherung || formData.unterstützungskasse || formData.pensionskasse || formData.versorgungswerk) ? 'badge-green' : 'badge-gray'
+            );
+            
+            // Immobilienvermögen
+            addStrategyItem(
+                strategyGrid,
+                'Immobilienvermögen',
+                (formData.wohneigentum || formData.vermietet) ? 'Vorhanden' : 'Optional',
+                (formData.wohneigentum || formData.vermietet) ? 'badge-green' : 'badge-gray'
+            );
+            
+            // Sparquote
+            const sparquote = getPercentage(formData.monatlicheRücklage, formData.jährlicheEinkünfte);
+            addStrategyItem(
+                strategyGrid,
+                'Sparquote',
+                formData.monatlicheRücklage ? `${sparquote}% vom Einkommen` : 'Zu niedrig',
+                formData.monatlicheRücklage && sparquote >= 10 ? 'badge-green' : 'badge-red'
+            );
+            
+            // Steuerliche Optimierung
+            addStrategyItem(
+                strategyGrid,
+                'Steuerliche Optimierung',
+                formData.höchstbeträgeAusgeschöpft ? 'Optimiert' : 'Potenzial',
+                formData.höchstbeträgeAusgeschöpft ? 'badge-green' : 'badge-yellow'
+            );
+            
+            // Update recommendations
+            const recommendationList = document.getElementById('recommendation-list');
+            recommendationList.innerHTML = '';
+            
+            if (!formData.versicherungsArt) {
+                addRecommendation(recommendationList, 'Prüfe deinen Status bei der Deutschen Rentenversicherung und fordere eine aktuelle Renteninformation an.');
+            }
+            
+            if (formData.versicherungsArt === 'Nicht versichert') {
+                addRecommendation(recommendationList, 'Erwäge eine freiwillige Einzahlung in die gesetzliche Rentenversicherung, um einen Basisschutz zu erhalten.');
+            }
+            
+            if (!formData.privateRente && !formData.etfSparpläne && !formData.rürupRente && !formData.riesterRente) {
+                addRecommendation(recommendationList, 'Baue eine private Altersvorsorge auf, z.B. mit ETF-Sparplänen oder einer Basisrente (Rürup), um deine Rentenlücke zu schließen.');
+            }
+            
+            if (!formData.höchstbeträgeAusgeschöpft) {
+                addRecommendation(recommendationList, 'Nutze steuerliche Vorteile durch eine Rürup-Rente oder freiwillige Einzahlungen in die DRV (bis zu 27.566 € bei Ledigen, 55.132 € bei Verheirateten in 2025).');
+            }
+            
+            if (parseFloat(formData.monatlicheRücklage || 0) / (parseFloat(formData.jährlicheEinkünfte || 1) / 12) < 0.1 && formData.monatlicheRücklage && formData.jährlicheEinkünfte) {
+                addRecommendation(recommendationList, 'Erhöhe deine Sparquote auf mindestens 10-15% deines Einkommens für eine ausreichende Altersvorsorge.');
+            }
+            
+            if (formData.rentenlücke > 500) {
+                addRecommendation(recommendationList, 'Deine Rentenlücke ist erheblich. Erwäge, deine Vorsorgestrategie mit einem Experten von vorsorge.berlin zu optimieren.');
+            }
+            
+            addRecommendation(recommendationList, 'Überprüfe deine Altersvorsorgestrategie mindestens einmal jährlich und passe sie an veränderte Lebensumstände an.');
+            
+            // Show results container, hide form container
+            formContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Helper function to add result items
+        function addResultItem(parentElement, text) {
+            const item = document.createElement('li');
+            item.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${text}</span>
+            `;
+            parentElement.appendChild(item);
+        }
+
+        // Helper function to add strategy items
+        function addStrategyItem(parentElement, title, status, statusClass) {
+            const item = document.createElement('div');
+            item.className = 'strategy-item';
+            item.innerHTML = `
+                <h4 class="strategy-title">${title}</h4>
+                <span class="strategy-badge ${statusClass}">${status}</span>
+            `;
+            parentElement.appendChild(item);
+        }
+
+        // Helper function to add recommendations
+        function addRecommendation(parentElement, text) {
+            const item = document.createElement('li');
+            item.innerHTML = `
+                <i class="fas fa-arrow-right"></i>
+                <span>${text}</span>
+            `;
+            parentElement.appendChild(item);
+        }
+
+        // Gather form data from inputs
+        function gatherFormData() {
+            // Gesetzliche Rentenversicherung
+            formData.versicherungsArt = document.getElementById('versicherungsArt').value;
+            formData.rentenHöhe = document.getElementById('rentenHöhe').value;
+            formData.freiwilligeEinzahlung = document.getElementById('freiwilligeEinzahlung').checked;
+            
+            // Private Altersvorsorge
+            formData.privateRente = document.getElementById('privateRente').checked;
+            formData.privateRenteVerzinsung = document.getElementById('privateRenteVerzinsung').value;
+            formData.privateRenteKosten = document.getElementById('privateRenteKosten').value;
+            formData.etfSparpläne = document.getElementById('etfSparpläne').checked;
+            formData.etfSparplanBetrag = document.getElementById('etfSparplanBetrag').value;
+            formData.rürupRente = document.getElementById('rürupRente').checked;
+            formData.riesterRente = document.getElementById('riesterRente').checked;
+            
+            // Betriebliche Altersvorsorge
+            formData.direktversicherung = document.getElementById('direktversicherung').checked;
+            formData.unterstützungskasse = document.getElementById('unterstützungskasse').checked;
+            formData.pensionskasse = document.getElementById('pensionskasse').checked;
+            formData.versorgungswerk = document.getElementById('versorgungswerk').checked;
+            
+            // Immobilien
+            formData.wohneigentum = document.getElementById('wohneigentum').checked;
+            formData.vermietet = document.getElementById('vermietet').checked;
+            formData.immobilienWert = document.getElementById('immobilienWert').value;
+            formData.kredite = document.getElementById('kredite').value;
+            formData.mietrendite = document.getElementById('mietrendite').value;
+            
+            // Einnahmen & Steuer
+            formData.jährlicheEinkünfte = document.getElementById('jährlicheEinkünfte').value;
+            formData.monatlicheRücklage = document.getElementById('monatlicheRücklage').value;
+            updateSteuerAbsetzung();
+            formData.höchstbeträgeAusgeschöpft = document.getElementById('höchstbeträgeAusgeschöpft').checked;
+            
+            // Rentenlücke
+            formData.geschätzteRente = document.getElementById('geschätzteRente').value;
+            formData.gewünschtesEinkommen = document.getElementById('gewünschtesEinkommen').value;
+        }
