@@ -28,60 +28,43 @@ Diese statische Website dient als Informations- und Kommunikationsplattform für
 
 Die Website benötigt keinen Webserver mit speziellen Anforderungen und kann auf jedem statischen Hosting-Dienst bereitgestellt werden.
 
-1. Repository klonen:
-```bash
-git clone https://github.com/yourusername/vorsorge-berlin.git
-```
+# vorsorge.berlin
 
-2. Dateien auf Ihren Webserver hochladen oder mit GitHub Pages deployen.
+Eine Website, die maßgeschneiderte Lösungen für die Altersvorsorge von Selbständigen in Berlin bietet.
 
-## GitHub Pages Setup
+## Über das Projekt
 
-Sie können diese Website einfach über GitHub Pages bereitstellen:
+vorsorge.berlin ist eine Initiative des House of Finance and Tech Berlin (HoFT Berlin GmbH), die Selbständigen in Berlin hilft, ihre Altersvorsorge optimal zu gestalten - einfach, transparent und auf individuelle Bedürfnisse zugeschnitten.
 
-1. Gehen Sie zu den Repository-Einstellungen
-2. Scrollen Sie zu "GitHub Pages"
-3. Wählen Sie den Branch (meist "main") und speichern Sie
-4. Die Website ist nun unter `https://yourusername.github.io/vorsorge-berlin/` verfügbar
+## Funktionen
 
-## Anpassung
+- **Grundlagen der Altersvorsorge**: Informationen zu den Besonderheiten der Altersvorsorge für Selbständige
+- **Vorsorgeplanung in 5 Schritten**: Strukturierter Ansatz zur Entwicklung eines individuellen Vorsorgeplans
+- **Interaktive Tools & Rechner**:
+  - 5-Minuten Checkup zur schnellen Bestandsaufnahme
+  - Rentenlückenrechner zur Berechnung der potenziellen Versorgungslücke
+  - ETF-Sparplanrechner zur Berechnung langfristiger Anlageergebnisse
+- **Beratungsangebote**: Möglichkeiten für individuelle Beratung und Veranstaltungen
+- **FAQ**: Antworten auf die häufigsten Fragen zur Altersvorsorge für Selbständige
 
-### Farben ändern
+## Projektstruktur
 
-Die Website verwendet CSS-Variablen für ein einheitliches Farbschema. Sie können die Farbpalette einfach im Style-Bereich des HTML-Dokuments anpassen:
+- `index.html` - Hauptseite der Website
+- `checkup.html` - 5-Minuten Checkup Tool
+- `rentengap.html` - Rentenlückenrechner
+- `sparplan.html` - ETF-Sparplanrechner
+- `faq.html` - Häufig gestellte Fragen
+- `datenschutz.html` - Datenschutzerklärung
+- `impressum.html` - Impressum
+- `.github/workflows` - GitHub Workflow-Konfigurationen
 
-```css
-:root {
-    --primary: #e2fe6c;   /* Helles Gelbgrün */
-    --secondary: #001d6c; /* Dunkles Blau */
-    --light: #f2f3f5;     /* Helles Grau */
-    --dark: #121212;      /* Fast Schwarz */
-    --gray: #cfdbf7;      /* Helles Blaugrau */
-}
-```
+## Betreiber
 
-### Bilder ersetzen
-
-Bilder können einfach ersetzt werden, indem Sie neue Bilder in das Verzeichnis hochladen und die Pfade in der HTML-Datei aktualisieren.
-
-## Inhalte aktualisieren
-
-Um die Website mit aktuellen Inhalten zu pflegen:
-
-1. Öffnen Sie die `index.html` Datei
-2. Bearbeiten Sie die entsprechenden Text-Abschnitte
-3. Speichern Sie die Datei und pushen Sie die Änderungen zum Repository
+House of Finance and Tech Berlin GmbH (HoFT Berlin GmbH)  
+c/o Spielfeld Digital Hub GmbH  
+Skalitzer Str. 85-86  
+10997 Berlin
 
 ## Lizenz
 
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Kontakt
-
-vorsorge.berlin - House of Finance & Tech  
-E-Mail: info@vorsorge-berlin.de  
-Website: [www.vorsorge.berlin](https://www.vorsorge.berlin)
-
----
-
-Entwickelt von House of Finance & Tech | © 2025 vorsorge.berlin
+© 2025 vorsorge.berlin | House of Finance and Tech Berlin GmbH. Alle Rechte vorbehalten.
