@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="ETF-Sparplanrechner für Selbständige in Berlin - Berechne deine Altersvorsorge">
+    <meta name="theme-color" content="#e2fe6c">
+    <title>ETF-Sparplanrechner - vorsorge.berlin</title>
+    
+    <!-- Favicon-Implementierung -->
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #e2fe6c;
+            --primary-dark: #c7e54a;
+            --secondary: #001d6c;
+            --secondary-light: #253c8a;
+            --light: #f5f7fa;
+            --dark: #121212;
+            --gray: #cfdbf7;
+            --gray-light: #edf0f7;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --container-padding: clamp(1rem, 5%, 2rem);
+            --section-spacing: 8rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-size: 16px;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 0.6rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span.highlight {
+            color: var(--secondary);
+            background-color: var(--primary);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.9rem 1.75rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.4;
+            min-width: 160px;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:hover::after {
+            height: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gray-light);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            margin-left: auto;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--secondary);
+            position: absolute;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-3px);
+        }
+        
+        /* Sparplanrechner spezifische Stile */
+        .calculator-container {
+            max-width: 1100px;
+            margin: 2rem auto 5rem;
+            background-color: var(--light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 2rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+            color: var(--secondary);
+        }
+        
+        .breadcrumb a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--secondary-light);
+        }
+        
+        .breadcrumb span {
+            margin: 0 0.5rem;
+        }
+        
+        .tool-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .tool-title h1 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        
+        .tool-title h1::after {
+            content: '';
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .tool-description {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card h3 {
+            display: flex;
+            align-items: center;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-wrapper span {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #555;
+        }
+        
+        .input-wrapper input[type="number"] {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 2rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        
+        .input-wrapper input[type="number"]:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0,29,108,0.1);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            background-color: var(--gray-light);
+            border-radius: 4px;
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: #555;
+            margin-top: 0.5rem;
+        }
+        
+        .btn-link {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            text-decoration: underline;
+            text-align: left;
+            font-family: inherit;
+        }
+        
+        .result-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--primary);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-box span:last-child {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-item {
+            padding: 1rem;
+            background-color: var(--gray-light);
+            border-radius: var(--radius-md);
+        }
+        
+        .result-item div:first-child {
+            font-size: 0.875rem;
+            color: #555;
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-item div:last-child {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .progress-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-label {
+            font-size: 0.875rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            background-color: var(--gray-light);
+            border-radius: 99px;
+            height: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background-color: var(--secondary);
+            height: 100%;
+            border-radius: 99px;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 0.5rem;
+        }
+        
+        .key-stats {
+            margin-top: auto;
+            border-top: 1px solid var(--gray-light);
+            padding-top: 1.5rem;
+        }
+        
+        .key-stats h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .key-stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .key-stat {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .key-stat span:first-child {
+            color: #555;
+        }
+        
+        .key-stat span:last-child {
+            font-weight: 500;
+        }
+        
+        .tool {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.5rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            padding: 1.5rem 2rem 0;
+        }
+        
+        .tab {
+            padding: 0.75rem 1rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #555;
+            font-family: inherit;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .tab.active {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .tab-content {
+            padding: 2rem;
+        }
+        
+        .chart-container {
+            height: 400px;
+            position: relative;
+        }
+        
+        .disclaimer {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #555;
+            margin-top: 2rem;
+        }
+        
+        .cta-box {
+            background-color: var(--primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .calculator-container {
+                margin: 2rem auto 4rem;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                padding: 5rem 2rem 2rem;
+                z-index: 1000;
+                transition: var(--transition);
+                gap: 0;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            nav ul li a {
+                padding: 1rem 0;
+                display: block;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                gap: 0;
+            }
+            
+            .tab {
+                white-space: nowrap;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            :root {
+                --container-padding: 1rem;
+            }
+            
+            .calculator-container {
+                padding: 1rem;
+            }
+            
+            .card, .tool {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="highlight">HT</span> vorsorge.berlin
+                </a>
+                <nav>
+                    <div class="hamburger" id="hamburger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="nav-menu">
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="index.html#kontakt">Kontakt</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Startseite</a>
+            <span>›</span>
+            <a href="index.html#tools">Tools & Rechner</a>
+            <span>›</span>
+            ETF-Sparplanrechner
+        </div>
+    </div>
+
+    <div class="container calculator-container fade-in">
+        <div class="tool-title">
+            <h1>ETF-Sparplanrechner</h1>
+        </div>
+        
+        <div class="tool-description">
+            <p>Mit unserem ETF-Sparplanrechner kannst du das Potenzial deiner langfristigen Kapitalanlage berechnen. Erfahre, wie viel dein Investment über verschiedene Zeiträume wachsen kann und welche Bedeutung der Zinseszinseffekt für deine Altersvorsorge hat.</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3><span class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </span>Eingabedaten</h3>
+                
+                <div class="input-group">
+                    <label for="initialInvestment">Anfangsinvestition</label>
+                    <div class="input-wrapper">
+                        <span>€</span>
+                        <input type="number" id="initialInvestment" value="10000">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="monthlyContribution">Monatliche Sparrate</label>
+                    <div class="input-wrapper">
+                        <span>€</span>
+                        <input type="number" id="monthlyContribution" value="500">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="yearsToInvest">Anlagezeitraum (Jahre)</label>
+                    <input type="range" id="yearsToInvest" min="1" max="40" value="20">
+                    <div class="range-labels">
+                        <span>1</span>
+                        <span id="yearsToInvestValue">20</span>
+                        <span>40</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="expectedReturnRate">Erwartete jährliche Rendite (%)</label>
+                    <input type="range" id="expectedReturnRate" min="1" max="15" step="0.1" value="7">
+                    <div class="range-labels">
+                        <span>1%</span>
+                        <span id="expectedReturnRateValue">7.0%</span>
+                        <span>15%</span>
+                    </div>
+                </div>
+                
+                <button id="advancedToggle" class="btn-link">Erweiterte Optionen anzeigen</button>
+                
+                <div id="advancedOptions" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-light);">
+                    <div class="input-group">
+                        <label for="annualFees">Jährliche Fondskosten (%)</label>
+                        <input type="range" id="annualFees" min="0" max="2" step="0.05" value="0.2">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span id="annualFeesValue">0.20%</span>
+                            <span>2%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="taxRate">Kapitalertragsteuer (%)</label>
+                        <input type="range" id="taxRate" min="0" max="30" step="0.1" value="26.375">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span id="taxRateValue">26.4%</span>
+                            <span>30%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="inflationRate">Inflationsrate (%)</label>
+                        <input type="range" id="inflationRate" min="0" max="5" step="0.1" value="2">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span id="inflationRateValue">2.0%</span>
+                            <span>5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><span class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                            <line x1="3" y1="20" x2="21" y2="20"></line>
+                        </svg>
+                    </span>Ergebnisse</h3>
+                
+                <div class="result-box">
+                    <span>Endwert nach <span id="resultYears">20</span> Jahren:</span>
+                    <span id="totalValue">€ 0</span>
+                </div>
+                
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div>Gesamte Einzahlungen</div>
+                        <div id="totalInvestment">€ 0</div>
+                    </div>
+                    <div class="result-item">
+                        <div>Gewinn</div>
+                        <div id="totalReturns">€ 0</div>
+                    </div>
+                    
+                    <div id="advancedResults" style="display: none; grid-column: span 2;">
+                        <div class="result-grid" style="margin-bottom: 0;">
+                            <div class="result-item">
+                                <div>Nach Steuern</div>
+                                <div id="totalAfterTax">€ 0</div>
+                            </div>
+                            <div class="result-item">
+                                <div>Reale Kaufkraft</div>
+                                <div id="totalAfterInflation">€ 0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">Verhältnis Gewinn zu Einzahlungen</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span>Einzahlungen: <span id="investmentPercentage">0%</span></span>
+                        <span>Gewinn: <span id="returnsPercentage">0%</span></span>
+                    </div>
+                </div>
+                
+                <div class="key-stats">
+                    <h4>Schlüsselzahlen</h4>
+                    <div class="key-stats-grid">
+                        <div class="key-stat">
+                            <span>Jährliche Rendite:</span>
+                            <span id="keyReturnRate">7.0%</span>
+                        </div>
+                        <div class="key-stat">
+                            <span>Monatliche Einzahlung:</span>
+                            <span id="keyMonthlyContribution">€ 500</span>
+                        </div>
+                        <div class="key-stat">
+                            <span>Rendite nach <span id="keyResultYears">20</span> Jahren:</span>
+                            <span id="keyTotalReturn">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tool">
+            <div class="tabs">
+                <button class="tab active" data-tab="growth">Wachstumskurve</button>
+                <button class="tab" data-tab="comparison">Rendite-Vergleich</button>
+                <button class="tab" data-tab="breakdown">Aufteilung</button>
+            </div>
+            <div class="tab-content">
+                <div id="growth-chart" class="chart-container">
+                    <canvas id="growthChart"></canvas>
+                </div>
+                <div id="comparison-chart" class="chart-container" style="display: none;">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+                <div id="breakdown-chart" class="chart-container" style="display: none;">
+                    <canvas id="breakdownChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="disclaimer">
+            <p>Hinweis: Diese Berechnungen dienen nur zu Informationszwecken und stellen keine Anlageberatung dar. 
+            Die tatsächlichen Ergebnisse können aufgrund von Marktschwankungen, Steueränderungen und anderen Faktoren abweichen.</p>
+        </div>
+        
+        <div class="cta-box">
+            <h3>Möchtest du einen persönlichen Vorsorgeplan?</h3>
+            <p>Diese Berechnung stellt nur einen Baustein deiner Altersvorsorge dar. Lass dich von unseren Experten beraten, um eine umfassende Strategie zu entwickeln, die perfekt zu deiner Situation passt.</p>
+            <div class="cta-buttons">
+                <a href="index.html#kontakt" class="btn">Kostenlose Beratung vereinbaren</a>
+                <a href="index.html#vorsorgeplanung" class="btn btn-secondary">Mehr zum Vorsorgeplan</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>vorsorge.berlin</h3>
+                    <p>House of Finance and Tech Berlin GmbH<br>
+                    (HoFT Berlin GmbH)<br>
+                    c/o Spielfeld Digital Hub GmbH<br>
+                    Skalitzer Str. 85-86<br>
+                    10997 Berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <p>Tel: +49 (0)30 43974287-0<br>
+                    E-Mail: info@hoft.berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="datenschutz.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 vorsorge.berlin | House of Finance and Tech Berlin GmbH</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Nach oben scrollen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header und Navigation
+            const header = document.getElementById('header');
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const backToTop = document.getElementById('back-to-top');
+            const scrollThreshold = 100;
+            
+            // Toggle mobile menu
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on nav items
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Back to top button
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            function toggleMobileMenu(e) {
+                e.stopPropagation();
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+            
+            function closeMobileMenu() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+            
+            function handleScroll() {
+                // Smaller header on scroll
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                    backToTop.classList.add('visible');
+                } else {
+                    header.classList.remove('scrolled');
+                    backToTop.classList.remove('visible');
+                }
+            }
+            
+            // Initialisierung des Headers
+            handleScroll();
+            
+            // Sparplanrechner Funktionalität
+            // DOM Elements
+            const initialInvestmentInput = document.getElementById('initialInvestment');
+            const monthlyContributionInput = document.getElementById('monthlyContribution');
+            const yearsToInvestInput = document.getElementById('yearsToInvest');
+            const expectedReturnRateInput = document.getElementById('expectedReturnRate');
+            const annualFeesInput = document.getElementById('annualFees');
+            const taxRateInput = document.getElementById('taxRate');
+            const inflationRateInput = document.getElementById('inflationRate');
+            
+            const yearsToInvestValue = document.getElementById('yearsToInvestValue');
+            const expectedReturnRateValue = document.getElementById('expectedReturnRateValue');
+            const annualFeesValue = document.getElementById('annualFeesValue');
+            const taxRateValue = document.getElementById('taxRateValue');
+            const inflationRateValue = document.getElementById('inflationRateValue');
+            
+            const advancedToggle = document.getElementById('advancedToggle');
+            const advancedOptions = document.getElementById('advancedOptions');
+            const advancedResults = document.getElementById('advancedResults');
+            
+            const totalValueElement = document.getElementById('totalValue');
+            const totalInvestmentElement = document.getElementById('totalInvestment');
+            const totalReturnsElement = document.getElementById('totalReturns');
+            const totalAfterTaxElement = document.getElementById('totalAfterTax');
+            const totalAfterInflationElement = document.getElementById('totalAfterInflation');
+            
+            const resultYearsElements = document.querySelectorAll('#resultYears, #keyResultYears');
+            const progressFill = document.getElementById('progressFill');
+            const investmentPercentage = document.getElementById('investmentPercentage');
+            const returnsPercentage = document.getElementById('returnsPercentage');
+            
+            const keyReturnRate = document.getElementById('keyReturnRate');
+            const keyMonthlyContribution = document.getElementById('keyMonthlyContribution');
+            const keyTotalReturn = document.getElementById('keyTotalReturn');
+            
+            const tabs = document.querySelectorAll('.tab');
+            const chartContainers = document.querySelectorAll('.chart-container');
+            
+            let growthChart, comparisonChart, breakdownChart;
+            let showAdvanced = false;
+            
+            // Formatter for currency
+            const formatter = new Intl.NumberFormat('de-DE', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+            
+            // Formatter for percentages
+            const percentFormatter = new Intl.NumberFormat('de-DE', {
+                style: 'percent',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            // Chart colors
+            const chartColors = {
+                primary: '#e2fe6c',
+                secondary: '#001d6c',
+                secondaryLight: '#253c8a',
+                gray: '#cfdbf7',
+                grayLight: '#edf0f7'
+            };
+            
+            // Initialize
+            function initialize() {
+                // Set initial values
+                updateRangeLabels();
+                
+                // Initialize charts
+                initializeCharts();
+                
+                // Calculate initial results
+                calculateInvestment();
+                
+                // Add event listeners
+                addEventListeners();
+            }
+            
+            // Update range label values
+            function updateRangeLabels() {
+                yearsToInvestValue.textContent = yearsToInvestInput.value;
+                expectedReturnRateValue.textContent = parseFloat(expectedReturnRateInput.value).toFixed(1) + '%';
+                annualFeesValue.textContent = parseFloat(annualFeesInput.value).toFixed(2) + '%';
+                taxRateValue.textContent = parseFloat(taxRateInput.value).toFixed(1) + '%';
+                inflationRateValue.textContent = parseFloat(inflationRateInput.value).toFixed(1) + '%';
+            }
+            
+            // Main calculation function
+            function calculateInvestment() {
+                const initialInvestment = parseFloat(initialInvestmentInput.value) || 0;
+                const monthlyContribution = parseFloat(monthlyContributionInput.value) || 0;
+                const yearsToInvest = parseInt(yearsToInvestInput.value) || 0;
+                const expectedReturnRate = parseFloat(expectedReturnRateInput.value) || 0;
+                const annualFees = parseFloat(annualFeesInput.value) || 0;
+                const taxRate = parseFloat(taxRateInput.value) || 0;
+                const inflationRate = parseFloat(inflationRateInput.value) || 0;
+                
+                const months = yearsToInvest * 12;
+                const monthlyRate = (expectedReturnRate - annualFees) / 100 / 12;
+                const inflationMonthlyRate = inflationRate / 100 / 12;
+                
+                let currentValue = initialInvestment;
+                let totalContributions = initialInvestment;
+                let chartData = [];
+                
+                for (let month = 0; month <= months; month++) {
+                    // Calculate values before tax
+                    const yearPoint = month / 12;
+                    const earned = month > 0 ? currentValue * monthlyRate : 0;
+                    currentValue += earned + (month > 0 ? monthlyContribution : 0);
+                    
+                    if (month > 0) {
+                        totalContributions += monthlyContribution;
+                    }
+                    
+                    // Calculate taxable earnings
+                    const totalEarnings = currentValue - totalContributions;
+                    const taxPaid = totalEarnings > 0 ? (totalEarnings * (taxRate / 100)) : 0;
+                    const valueAfterTax = currentValue - taxPaid;
+                    
+                    // Calculate inflation-adjusted value
+                    const inflationFactor = Math.pow(1 + inflationMonthlyRate, month);
+                    const valueAfterInflation = valueAfterTax / inflationFactor;
+                    
+                    // Only include data points for the beginning of each year or the final month
+                    if (month % 12 === 0 || month === months) {
+                        chartData.push({
+                            year: Math.floor(yearPoint),
+                            month: month,
+                            totalContributions: totalContributions,
+                            investment: currentValue,
+                            returns: totalEarnings,
+                            afterTax: valueAfterTax,
+                            afterInflation: valueAfterInflation,
+                            earned: earned
+                        });
+                    }
+                }
+                
+                // Generate comparison data for different monthly contributions
+                const comparisonRates = [
+                    { label: 'Konservativ (4%)', rate: 4 },
+                    { label: 'Moderat (7%)', rate: 7 },
+                    { label: 'Optimistisch (10%)', rate: 10 }
+                ];
+                
+                const compareResults = comparisonRates.map(({ label, rate }) => {
+                    const monthlyRateComp = (rate - annualFees) / 100 / 12;
+                    let valueComp = initialInvestment;
+                    let contributionsComp = initialInvestment;
+                    
+                    for (let month = 1; month <= months; month++) {
+                        valueComp += valueComp * monthlyRateComp + monthlyContribution;
+                        contributionsComp += monthlyContribution;
+                    }
+                    
+                    return {
+                        label,
+                        value: valueComp,
+                        contributions: contributionsComp,
+                        returns: valueComp - contributionsComp
+                    };
+                });
+                
+                // Update UI with results
+                const lastDataPoint = chartData[chartData.length - 1];
+                updateResults(lastDataPoint);
+                
+                // Update charts
+                updateCharts(chartData, compareResults);
+            }
+            
+            // Update UI with calculation results
+            function updateResults(data) {
+                // Update basic results
+                totalValueElement.textContent = formatter.format(data.investment);
+                totalInvestmentElement.textContent = formatter.format(data.totalContributions);
+                totalReturnsElement.textContent = formatter.format(data.returns);
+                
+                // Update advanced results if enabled
+                if (showAdvanced) {
+                    totalAfterTaxElement.textContent = formatter.format(data.afterTax);
+                    totalAfterInflationElement.textContent = formatter.format(data.afterInflation);
+                }
+                
+                // Update years in results
+                resultYearsElements.forEach(el => {
+                    el.textContent = yearsToInvestInput.value;
+                });
+                
+                // Update progress bar
+                const investmentPercent = (data.totalContributions / data.investment * 100).toFixed(0);
+                const returnsPercent = (data.returns / data.investment * 100).toFixed(0);
+                
+                progressFill.style.width = returnsPercent + '%';
+                investmentPercentage.textContent = investmentPercent + '%';
+                returnsPercentage.textContent = returnsPercent + '%';
+                
+                // Update key stats
+                keyReturnRate.textContent = expectedReturnRateInput.value + '%';
+                keyMonthlyContribution.textContent = formatter.format(parseFloat(monthlyContributionInput.value));
+                keyTotalReturn.textContent = percentFormatter.format(data.returns / data.totalContributions);
+            }
+            
+            // Initialize the charts
+            function initializeCharts() {
+                // Growth Chart
+                const growthCtx = document.getElementById('growthChart').getContext('2d');
+                growthChart = new Chart(growthCtx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Depotwert',
+                                backgroundColor: 'rgba(0, 29, 108, 0.2)',
+                                borderColor: '#001d6c',
+                                borderWidth: 2,
+                                data: [],
+                                fill: true
+                            },
+                            {
+                                label: 'Einzahlungen',
+                                backgroundColor: 'rgba(226, 254, 108, 0.2)',
+                                borderColor: '#e2fe6c',
+                                borderWidth: 2,
+                                data: [],
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: value => formatter.format(value)
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Wert'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Jahre'
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Comparison Chart
+                const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+                comparisonChart = new Chart(comparisonCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Einzahlungen',
+                                backgroundColor: '#e2fe6c',
+                                data: []
+                            },
+                            {
+                                label: 'Rendite',
+                                backgroundColor: '#001d6c',
+                                data: []
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: value => formatter.format(value)
+                                }
+                            },
+                            x: {
+                                stacked: false
+                            }
+                        }
+                    }
+                });
+                
+                // Breakdown Chart
+                const breakdownCtx = document.getElementById('breakdownChart').getContext('2d');
+                breakdownChart = new Chart(breakdownCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Einzahlungen', 'Rendite'],
+                        datasets: [{
+                            data: [1, 1],
+                            backgroundColor: ['#e2fe6c', '#001d6c']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.raw;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${context.label}: ${formatter.format(value)} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Update charts with new data
+            function updateCharts(chartData, compareResults) {
+                // Update Growth Chart
+                const years = chartData.map(item => item.year);
+                const investments = chartData.map(item => item.investment);
+                const contributions = chartData.map(item => item.totalContributions);
+                const afterTax = chartData.map(item => item.afterTax);
+                const afterInflation = chartData.map(item => item.afterInflation);
+                
+                growthChart.data.labels = years;
+                growthChart.data.datasets[0].data = investments;
+                growthChart.data.datasets[1].data = contributions;
+                
+                if (showAdvanced) {
+                    if (growthChart.data.datasets.length === 2) {
+                        // Add the new datasets if they don't exist
+                        growthChart.data.datasets.push({
+                            label: 'Nach Steuern',
+                            backgroundColor: 'rgba(207, 219, 247, 0.2)',
+                            borderColor: '#cfdbf7',
+                            borderWidth: 2,
+                            data: afterTax,
+                            fill: true
+                        });
+                        
+                        growthChart.data.datasets.push({
+                            label: 'Kaufkraft',
+                            backgroundColor: 'rgba(237, 240, 247, 0.2)',
+                            borderColor: '#edf0f7',
+                            borderWidth: 2,
+                            data: afterInflation,
+                            fill: true
+                        });
+                    } else {
+                        // Update the existing datasets
+                        growthChart.data.datasets[2].data = afterTax;
+                        growthChart.data.datasets[3].data = afterInflation;
+                    }
+                } else if (growthChart.data.datasets.length > 2) {
+                    // Remove the advanced datasets if they exist
+                    growthChart.data.datasets.splice(2, 2);
+                }
+                
+                growthChart.update();
+                
+                // Update Comparison Chart
+                const labels = compareResults.map(item => item.label);
+                const contribValues = compareResults.map(item => item.contributions);
+                const returnValues = compareResults.map(item => item.returns);
+                
+                comparisonChart.data.labels = labels;
+                comparisonChart.data.datasets[0].data = contribValues;
+                comparisonChart.data.datasets[1].data = returnValues;
+                comparisonChart.update();
+                
+                // Update Breakdown Chart
+                const lastDataPoint = chartData[chartData.length - 1];
+                breakdownChart.data.datasets[0].data = [
+                    lastDataPoint.totalContributions,
+                    lastDataPoint.returns
+                ];
+                breakdownChart.update();
+            }
+            
+            // Add event listeners
+            function addEventListeners() {
+                // Input changes
+                const inputElements = [
+                    initialInvestmentInput,
+                    monthlyContributionInput,
+                    yearsToInvestInput,
+                    expectedReturnRateInput,
+                    annualFeesInput,
+                    taxRateInput,
+                    inflationRateInput
+                ];
+                
+                inputElements.forEach(input => {
+                    input.addEventListener('input', () => {
+                        updateRangeLabels();
+                        calculateInvestment();
+                    });
+                });
+                
+                // Toggle advanced options
+                advancedToggle.addEventListener('click', () => {
+                    showAdvanced = !showAdvanced;
+                    
+                    advancedOptions.style.display = showAdvanced ? 'block' : 'none';
+                    advancedResults.style.display = showAdvanced ? 'block' : 'none';
+                    advancedToggle.textContent = showAdvanced ? 'Erweiterte Optionen ausblenden' : 'Erweiterte Optionen anzeigen';
+                    
+                    calculateInvestment();
+                });
+                
+                // Tab switching
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Deactivate all tabs
+                        tabs.forEach(t => t.classList.remove('active'));
+                        
+                        // Hide all chart containers
+                        chartContainers.forEach(container => {
+                            container.style.display = 'none';
+                        });
+                        
+                        // Activate clicked tab
+                        tab.classList.add('active');
+                        
+                        // Show corresponding chart
+                        const tabName = tab.getAttribute('data-tab');
+                        document.getElementById(`${tabName}-chart`).style.display = 'block';
+                    });
+                });
+            }
+            
+            // Run initialization when the DOM is loaded
+            initialize();
+        });
+    </script>
+</body>
+</html>
