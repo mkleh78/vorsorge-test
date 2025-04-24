@@ -6,6 +6,7 @@
     <meta name="description" content="Altersvorsorge für Selbständige in Berlin - Maßgeschneiderte Lösungen für deine finanzielle Zukunft">
     <meta name="theme-color" content="#e2fe6c">
     <title>vorsorge.berlin - Altersvorsorge für Selbständige</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -376,6 +377,8 @@
         .card-footer {
             margin-top: auto;
             padding-top: 2rem;
+            display: flex;
+            justify-content: center;
         }
         
         /* Modern Animated Steps */
@@ -1012,6 +1015,16 @@
             font-size: 0.9rem;
             min-width: auto;
         }
+
+        /* Custom Actions Buttons */
+        .card .btn {
+            width: 100%;
+            min-width: 180px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         
         /* Responsive */
         @media (max-width: 992px) {
@@ -1331,7 +1344,7 @@
             <div class="testimonial-container">
                 <div class="testimonial">
                     <div class="testimonial-text">
-                        <p>Als Grafikdesignerin hatte ich keine Ahnung, wie ich meine Altersvorsorge angehen sollte. Das Team von Vorsorge Berlin hat mir einen verständlichen Plan erstellt, den ich problemlos umsetzen konnte.</p>
+                        <p>Als Grafikdesignerin hatte ich keine Ahnung, wie ich meine Altersvorsorge angehen sollte. Das Team von vorsorge.berlin hat mir einen verständlichen Plan erstellt, den ich problemlos umsetzen konnte.</p>
                     </div>
                     <div class="testimonial-author">
                         <img src="mira.png" alt="Mira Schneider" style="width: 50px; height: 50px; object-fit: cover;">
@@ -1357,7 +1370,7 @@
                 
                 <div class="testimonial">
                     <div class="testimonial-text">
-                        <p>Mit 45 habe ich realisiert, dass ich für meine Altersvorsorge noch nicht viel getan hatte. Vorsorge Berlin hat mir gezeigt, dass es auch dafür nicht zu spät ist und einen maßgeschneiderten Plan erstellt.</p>
+                        <p>Mit 45 habe ich realisiert, dass ich für meine Altersvorsorge noch nicht viel getan hatte. vorsorge.berlin hat mir gezeigt, dass es auch dafür nicht zu spät ist und einen maßgeschneiderten Plan erstellt.</p>
                     </div>
                     <div class="testimonial-author">
                         <img src="laura.png" alt="Laura Weber" style="width: 50px; height: 50px; object-fit: cover;">
@@ -1379,7 +1392,14 @@
         <div class="card-container">
             <div class="card">
                 <div class="card-content">
-                    <h3><span class="card-icon">E</span> Zum nächsten Event anmelden</h3>
+                    <h3><span class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </span> Zum nächsten Event anmelden</h3>
                     <p>Nimm an unseren Workshops und Informationsveranstaltungen teil, um mehr über Altersvorsorgelösungen zu erfahren und dich mit Experten auszutauschen. Regelmäßige Veranstaltungen zu verschiedenen Vorsorgethemen.</p>
                 </div>
                 <div class="card-footer">
@@ -1389,7 +1409,14 @@
             
             <div class="card">
                 <div class="card-content">
-                    <h3><span class="card-icon">C</span> Teil der Community werden</h3>
+                    <h3><span class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </span> Teil der Community werden</h3>
                     <p>Tritt unserer Community bei und tausche dich mit anderen Selbständigen über Erfahrungen und Tipps aus. Zugang zu exklusiven Inhalten, Webinaren und regelmäßigen Netzwerkveranstaltungen.</p>
                 </div>
                 <div class="card-footer">
@@ -1399,7 +1426,12 @@
             
             <div class="card">
                 <div class="card-content">
-                    <h3><span class="card-icon">B</span> Expertin/Experten finden</h3>
+                    <h3><span class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </span> Unabhängige Beratung suchen</h3>
                     <p>Lass dich von unseren spezialisierten Beraterinnen und Beratern unterstützen, die Erfahrung mit den besonderen Anforderungen von Selbständigen haben. Individuelle Betreuung und maßgeschneiderte Lösungen.</p>
                 </div>
                 <div class="card-footer">
