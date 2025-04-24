@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Rentenlückenrechner für Selbständige in Berlin - Berechne deine finanzielle Zukunft">
+    <meta name="theme-color" content="#e2fe6c">
+    <title>Rentenlückenrechner - vorsorge.berlin</title>
+    
+    <!-- Verbesserte Favicon-Implementierung -->
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js für Diagramme -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #e2fe6c;
+            --primary-dark: #c7e54a;
+            --secondary: #001d6c;
+            --secondary-light: #253c8a;
+            --light: #f5f7fa;
+            --dark: #121212;
+            --gray: #cfdbf7;
+            --gray-light: #edf0f7;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --container-padding: clamp(1rem, 5%, 2rem);
+            --section-spacing: 8rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 0.6rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span.highlight {
+            color: var(--secondary);
+            background-color: var(--primary);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--primary);
+            padding: 4rem 0;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 29, 108, 0.05);
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-content h1 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.9rem 1.75rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.4;
+            min-width: 160px;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:hover::after {
+            height: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gray-light);
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: 5rem;
+            position: relative;
+            padding-top: 2rem;
+        }
+        
+        section.spaced-section {
+            margin-top: var(--section-spacing);
+            margin-bottom: var(--section-spacing);
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+        
+        /* Card for Calculator */
+        .calculator-card {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 2.5rem;
+            transition: var(--transition);
+            margin-bottom: 2.5rem;
+        }
+        
+        .calculator-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0,29,108,0.1);
+        }
+        
+        .input-addon {
+            position: relative;
+        }
+        
+        .input-addon input {
+            padding-right: 2.5rem;
+        }
+        
+        .input-addon::after {
+            content: attr(data-addon);
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .range-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .calculator-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background-color: var(--gray-light);
+            padding: 3rem 0;
+            margin-top: 3rem;
+            border-radius: var(--radius-lg);
+            display: none;
+        }
+        
+        .results-section.active {
+            display: block;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .result-box {
+            background-color: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+        
+        .result-box h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .recommendations {
+            background-color: white;
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .recommendations h3 {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .recommendations ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .recommendations li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .recommendations-footer {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background-color: rgba(226, 254, 108, 0.2);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+        
+        .info-box h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .info-box h3 svg {
+            margin-right: 0.5rem;
+        }
+        
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            cursor: help;
+        }
+        
+        .tooltip-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background-color: var(--gray);
+            color: var(--secondary);
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            border-radius: var(--radius-md);
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: normal;
+            font-size: 0.85rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--dark) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            margin-left: auto;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--secondary);
+            position: absolute;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            section {
+                margin-bottom: 5rem;
+            }
+            
+            .hero {
+                padding: 4rem 0;
+                margin-bottom: 4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                padding: 5rem 2rem 2rem;
+                z-index: 1000;
+                transition: var(--transition);
+                gap: 0;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            nav ul li a {
+                padding: 1rem 0;
+                display: block;
+            }
+            
+            .calculator-card {
+                padding: 1.5rem;
+            }
+            
+            .calculator-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .calculator-actions .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .calculator-card {
+                padding: 1.25rem;
+            }
+            
+            .result-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="highlight">HT</span> vorsorge.berlin
+                </a>
+                <nav>
+                    <div class="hamburger" id="hamburger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="nav-menu">
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="index.html#kontakt">Kontakt</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Rentenlückenrechner für Selbständige</h1>
+                <p>Mit unserem Rentenlückenrechner kannst du schnell und einfach herausfinden, wie groß deine potenzielle Versorgungslücke im Alter sein könnte. So erhältst du einen ersten Eindruck davon, wie viel du für deine Altersvorsorge zurücklegen solltest.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="calculator-card">
+            <h2>Deine persönlichen Daten</h2>
+            <p>Gib deine Daten ein, um eine individuelle Berechnung deiner Rentenlücke zu erhalten.</p>
+            
+            <form id="calculator-form">
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label for="age">Dein aktuelles Alter</label>
+                            <input type="number" id="age" min="18" max="67" value="35" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="retirement-age">Geplantes Renteneintrittsalter</label>
+                            <input type="number" id="retirement-age" min="60" max="75" value="67" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="life-expectancy">Erwartete Lebenserwartung
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Die durchschnittliche Lebenserwartung in Deutschland beträgt aktuell für Männer ca. 78 Jahre und für Frauen ca. 83 Jahre. Diese Angabe hilft bei der Berechnung der Rentenbezugsdauer.</span>
+                                </span>
+                            </label>
+                            <input type="number" id="life-expectancy" min="70" max="100" value="85" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="income">Dein aktuelles jährliches Bruttoeinkommen</label>
+                            <div class="input-addon" data-addon="€">
+                                <input type="number" id="income" min="10000" max="500000" value="60000" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="expected-increase">Erwartete jährliche Einkommenssteigerung
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Die durchschnittliche Einkommenssteigerung liegt historisch zwischen 1-3% pro Jahr. Dieser Wert beeinflusst dein erwartetes Einkommen vor der Rente.</span>
+                                </span>
+                            </label>
+                            <div class="input-addon" data-addon="%">
+                                <input type="number" id="expected-increase" min="0" max="10" step="0.1" value="2" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="desired-income">Gewünschter Anteil des letzten Einkommens im Ruhestand
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Experten empfehlen 70-80% des letzten Bruttoeinkommens, um den gewohnten Lebensstandard im Alter zu halten.</span>
+                                </span>
+                            </label>
+                            <div class="input-addon" data-addon="%">
+                                <input type="number" id="desired-income" min="50" max="100" value="75" required>
+                            </div>
+                            <div class="range-info">
+                                <span>Minimum: 50%</span>
+                                <span>Empfohlen: 70-80%</span>
+                                <span>Maximum: 100%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="gesetzliche-rente">Zahlst du in die gesetzliche Rentenversicherung ein?</label>
+                            <select id="gesetzliche-rente" required>
+                                <option value="0">Nein</option>
+                                <option value="1">Ja, freiwillig</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="gesetzliche-jahre-group" style="display: none;">
+                            <label for="gesetzliche-jahre">Bisherige Beitragsjahre (ca.)</label>
+                            <input type="number" id="gesetzliche-jahre" min="0" max="50" value="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="current-savings">Bereits vorhandenes Vorsorgekapital
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Summe aller bestehenden Altersvorsorgeprodukte wie private Rentenversicherungen, Kapitallebensversicherungen, Sparverträge etc.</span>
+                                </span>
+                            </label>
+                            <div class="input-addon" data-addon="€">
+                                <input type="number" id="current-savings" min="0" max="5000000" value="20000" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthly-savings">Monatlicher Sparbetrag für Altersvorsorge
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Regelmäßige monatliche Einzahlungen in Altersvorsorgeprodukte wie private Rentenversicherungen, ETF-Sparpläne etc.</span>
+                                </span>
+                            </label>
+                            <div class="input-addon" data-addon="€">
+                                <input type="number" id="monthly-savings" min="0" max="10000" value="300" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="return-rate">Erwartete durchschnittliche Rendite
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Die durchschnittliche langfristige Rendite für konservative Anlagestrategien liegt bei ca. 3-4%, für ausgewogene bei 4-6% und für wachstumsorientierte bei 6-8% pro Jahr.</span>
+                                </span>
+                            </label>
+                            <div class="input-addon" data-addon="%">
+                                <input type="number" id="return-rate" min="0" max="12" step="0.1" value="5" required>
+                            </div>
+                            <div class="range-info">
+                                <span>Konservativ: 3-4%</span>
+                                <span>Ausgewogen: 4-6%</span>
+                                <span>Wachstumsorientiert: 6-8%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inflation-rate">Angenommene Inflationsrate
+                                <span class="tooltip">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Die Europäische Zentralbank strebt eine Inflationsrate von knapp unter 2% an. Im langfristigen Mittel lag die Inflation in Deutschland bei ca. 2%.</span>
+                                </span>
+                            </label>
+                            <div class="input-addon" data-addon="%">
+                                <input type="number" id="inflation-rate" min="0" max="10" step="0.1" value="2" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Gut zu wissen
+                    </h3>
+                    <p>Eine Faustregel besagt, dass du für deinen Ruhestand etwa 70-80% deines letzten Bruttoeinkommens benötigst, um deinen gewohnten Lebensstandard halten zu können. Als Selbständige/r solltest du etwa 20% deines Nettoeinkommens monatlich für die Altersvorsorge zurücklegen.</p>
+                </div>
+                
+                <div class="calculator-actions">
+                    <button type="submit" class="btn" id="calculate-btn">Rentenlücke berechnen</button>
+                    <button type="reset" class="btn btn-secondary">Zurücksetzen</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="results-section" id="results-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Deine Ergebnisse</h2>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h3>Erwartetes letztes Jahreseinkommen</h3>
+                        <div class="result-value" id="final-income">-</div>
+                        <p class="result-description">Dein projiziertes Bruttoeinkommen vor dem Renteneintritt</p>
+                    </div>
+                    
+                    <div class="result-box">
+                        <h3>Benötigtes monatliches Einkommen</h3>
+                        <div class="result-value" id="required-income">-</div>
+                        <p class="result-description">Monatliches Einkommen, das du im Ruhestand benötigst</p>
+                    </div>
+                    
+                    <div class="result-box">
+                        <h3>Erwartete gesetzliche Rente</h3>
+                        <div class="result-value" id="expected-pension">-</div>
+                        <p class="result-description">Geschätzte monatliche gesetzliche Rente (falls vorhanden)</p>
+                    </div>
+                    
+                    <div class="result-box">
+                        <h3>Erwartetes Kapital bei Renteneintritt</h3>
+                        <div class="result-value" id="expected-capital">-</div>
+                        <p class="result-description">Dein projiziertes angespartes Kapital bei Renteneintritt</p>
+                    </div>
+                    
+                    <div class="result-box">
+                        <h3>Monatliche Rente aus Kapital</h3>
+                        <div class="result-value" id="capital-pension">-</div>
+                        <p class="result-description">Geschätzte monatliche Rente aus deinem angespartem Kapital</p>
+                    </div>
+                    
+                    <div class="result-box highlight-result">
+                        <h3>Monatliche Rentenlücke</h3>
+                        <div class="result-value" id="pension-gap">-</div>
+                        <p class="result-description">Die monatliche Differenz zwischen benötigtem Einkommen und erwarteter Rente</p>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="results-chart"></canvas>
+                </div>
+                
+                <div class="recommendations">
+                    <h3>Handlungsempfehlungen</h3>
+                    <div id="recommendations-content">
+                        <p>Basierend auf deinen Eingaben erstellte individuelle Handlungsempfehlungen werden hier angezeigt.</p>
+                    </div>
+                    
+                    <div class="recommendations-footer">
+                        <a href="index.html#kontakt" class="btn">Jetzt Beratungstermin vereinbaren</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>vorsorge.berlin</h3>
+                    <p>House of Finance and Tech Berlin GmbH<br>
+                    (HoFT Berlin GmbH)<br>
+                    c/o Spielfeld Digital Hub GmbH<br>
+                    Skalitzer Str. 85-86<br>
+                    10997 Berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <p>Tel: +49 (0)30 43974287-0<br>
+                    E-Mail: info@hoft.berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="datenschutz.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 vorsorge.berlin | House of Finance and Tech Berlin GmbH</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Nach oben scrollen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const header = document.getElementById('header');
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const backToTop = document.getElementById('back-to-top');
+            const calculatorForm = document.getElementById('calculator-form');
+            const resultsSection = document.getElementById('results-section');
+            const gesetzlicheRente = document.getElementById('gesetzliche-rente');
+            const gesetzlicheJahreGroup = document.getElementById('gesetzliche-jahre-group');
+            
+            // Form input elements
+            const age = document.getElementById('age');
+            const retirementAge = document.getElementById('retirement-age');
+            const lifeExpectancy = document.getElementById('life-expectancy');
+            const income = document.getElementById('income');
+            const expectedIncrease = document.getElementById('expected-increase');
+            const desiredIncome = document.getElementById('desired-income');
+            const gesetzlicheJahre = document.getElementById('gesetzliche-jahre');
+            const currentSavings = document.getElementById('current-savings');
+            const monthlySavings = document.getElementById('monthly-savings');
+            const returnRate = document.getElementById('return-rate');
+            const inflationRate = document.getElementById('inflation-rate');
+            
+            // Result elements
+            const finalIncome = document.getElementById('final-income');
+            const requiredIncome = document.getElementById('required-income');
+            const expectedPension = document.getElementById('expected-pension');
+            const expectedCapital = document.getElementById('expected-capital');
+            const capitalPension = document.getElementById('capital-pension');
+            const pensionGap = document.getElementById('pension-gap');
+            const recommendationsContent = document.getElementById('recommendations-content');
+            
+            // Chart
+            let resultsChart = null;
+            
+            // Toggle mobile menu
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on nav items
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (navMenu.classList.contains('active') && 
+                    !event.target.closest('nav')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Form submission
+            calculatorForm.addEventListener('submit', handleFormSubmit);
+            
+            // Toggle gesetzliche Rente options
+            gesetzlicheRente.addEventListener('change', function() {
+                if (this.value === '1') {
+                    gesetzlicheJahreGroup.style.display = 'block';
+                } else {
+                    gesetzlicheJahreGroup.style.display = 'none';
+                    gesetzlicheJahre.value = 0;
+                }
+            });
+            
+            // Back to top button
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Mobile menu functions
+            function toggleMobileMenu(e) {
+                e.stopPropagation();
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+            
+            function closeMobileMenu() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+            
+            function handleScroll() {
+                // Smaller header on scroll
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                    backToTop.classList.add('visible');
+                } else {
+                    header.classList.remove('scrolled');
+                    backToTop.classList.remove('visible');
+                }
+            }
+            
+            // Calculate pension gap
+            function handleFormSubmit(e) {
+                e.preventDefault();
+                
+                // Get values from form
+                const currentAge = parseInt(age.value);
+                const planRetirementAge = parseInt(retirementAge.value);
+                const expectedLifespan = parseInt(lifeExpectancy.value);
+                const currentIncome = parseFloat(income.value);
+                const yearlyIncomeIncrease = parseFloat(expectedIncrease.value) / 100;
+                const desiredIncomePercent = parseFloat(desiredIncome.value) / 100;
+                const hasGesetzlicheRente = gesetzlicheRente.value === '1';
+                const gesetzlicheRenteJahre = hasGesetzlicheRente ? parseInt(gesetzlicheJahre.value) : 0;
+                const currentSavingsValue = parseFloat(currentSavings.value);
+                const monthlySavingsValue = parseFloat(monthlySavings.value);
+                const expectedReturn = parseFloat(returnRate.value) / 100;
+                const expectedInflation = parseFloat(inflationRate.value) / 100;
+                
+                // Calculate years until retirement
+                const yearsUntilRetirement = planRetirementAge - currentAge;
+                
+                // Calculate expected final income before retirement
+                const finalIncomeValue = currentIncome * Math.pow(1 + yearlyIncomeIncrease, yearsUntilRetirement);
+                
+                // Calculate required monthly income in retirement
+                const requiredMonthlyIncome = (finalIncomeValue * desiredIncomePercent) / 12;
+                
+                // Calculate expected state pension (if applicable)
+                let monthlyStatePension = 0;
+                if (hasGesetzlicheRente) {
+                    // Simplified calculation for state pension
+                    // For more accurate calculations, a more complex formula would be needed
+                    const totalYearsContributed = gesetzlicheRenteJahre + yearsUntilRetirement;
+                    const rentenwert = 37.60; // Current value (2025) for pension calculation
+                    const entgeltpunkte = (totalYearsContributed * (currentIncome / 43142)) * 0.8; // Simplified calculation
+                    monthlyStatePension = entgeltpunkte * rentenwert;
+                }
+                
+                // Calculate expected capital at retirement
+                // Simplified calculation using compound interest formula
+                const realReturnRate = (1 + expectedReturn) / (1 + expectedInflation) - 1;
+                const currentSavingsAtRetirement = currentSavingsValue * Math.pow(1 + realReturnRate, yearsUntilRetirement);
+                
+                // Calculate future value of monthly savings
+                let futureSavings = 0;
+                if (monthlySavingsValue > 0) {
+                    futureSavings = monthlySavingsValue * 12 * ((Math.pow(1 + realReturnRate, yearsUntilRetirement) - 1) / realReturnRate);
+                }
+                
+                const totalExpectedCapital = currentSavingsAtRetirement + futureSavings;
+                
+                // Calculate monthly pension from capital
+                // Simplified calculation assuming the capital is used up over retirement period
+                const retirementYears = expectedLifespan - planRetirementAge;
+                const monthlyCapitalPension = calculateAnnuity(totalExpectedCapital, realReturnRate / 12, retirementYears * 12);
+                
+                // Calculate total monthly pension and pension gap
+                const totalMonthlyPension = monthlyStatePension + monthlyCapitalPension;
+                const monthlyPensionGap = Math.max(0, requiredMonthlyIncome - totalMonthlyPension);
+                
+                // Update results
+                finalIncome.textContent = formatCurrency(finalIncomeValue);
+                requiredIncome.textContent = formatCurrency(requiredMonthlyIncome);
+                expectedPension.textContent = formatCurrency(monthlyStatePension);
+                expectedCapital.textContent = formatCurrency(totalExpectedCapital);
+                capitalPension.textContent = formatCurrency(monthlyCapitalPension);
+                pensionGap.textContent = formatCurrency(monthlyPensionGap);
+                
+                // Update recommendations
+                updateRecommendations(monthlyPensionGap, requiredMonthlyIncome, monthlySavingsValue, currentIncome, yearsUntilRetirement);
+                
+                // Update chart
+                updateChart(requiredMonthlyIncome, monthlyStatePension, monthlyCapitalPension, monthlyPensionGap);
+                
+                // Show results section
+                resultsSection.classList.add('active');
+                
+                // Scroll to results
+                setTimeout(() => {
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+            }
+            
+            // Helper function to calculate annuity payment
+            function calculateAnnuity(presentValue, ratePerPeriod, periods) {
+                if (ratePerPeriod === 0) return presentValue / periods;
+                return (presentValue * ratePerPeriod) / (1 - Math.pow(1 + ratePerPeriod, -periods));
+            }
+            
+            // Format currency
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(value);
+            }
+            
+            // Update recommendations based on results
+            function updateRecommendations(pensionGap, requiredIncome, currentMonthlySavings, currentIncome, yearsToRetirement) {
+                let recommendations = '<ul>';
+                
+                // Calculate required monthly savings to close the gap
+                const realReturnRate = (1 + parseFloat(returnRate.value) / 100) / (1 + parseFloat(inflationRate.value) / 100) - 1;
+                const retirementMonths = yearsToRetirement * 12;
+                
+                // Calculate required capital to generate the needed additional income
+                const lifeExpectancy = parseInt(document.getElementById('life-expectancy').value);
+                const retirementAge = parseInt(document.getElementById('retirement-age').value);
+                const retirementYears = lifeExpectancy - retirementAge;
+                const requiredCapital = pensionGap * ((1 - Math.pow(1 + realReturnRate / 12, -retirementYears * 12)) / (realReturnRate / 12));
+                
+                // Calculate required monthly savings to reach the required capital
+                const requiredMonthlySavings = requiredCapital / ((Math.pow(1 + realReturnRate / 12, retirementMonths) - 1) / (realReturnRate / 12));
+                
+                // Add recommendations based on the gap
+                const gapRatio = pensionGap / requiredIncome;
+                
+                if (gapRatio <= 0.1) {
+                    recommendations += '<li>Du bist auf einem guten Weg! Deine monatliche Rentenlücke ist verhältnismäßig gering.</li>';
+                    recommendations += '<li>Überprüfe dennoch regelmäßig deine Altersvorsorge, um sicherzustellen, dass du auf Kurs bleibst.</li>';
+                } else if (gapRatio <= 0.3) {
+                    recommendations += '<li>Deine Rentenlücke ist moderat. Es wäre empfehlenswert, deine monatlichen Sparbeiträge zu erhöhen.</li>';
+                    recommendations += `<li>Um deine Rentenlücke zu schließen, könntest du erwägen, monatlich etwa ${formatCurrency(requiredMonthlySavings)} für deine Altersvorsorge zurückzulegen.</li>`;
+                } else {
+                    recommendations += '<li>Du hast eine erhebliche Rentenlücke, die aktives Handeln erfordert!</li>';
+                    recommendations += `<li>Um deine Rentenlücke zu schließen, wäre ein monatlicher Sparbetrag von etwa ${formatCurrency(requiredMonthlySavings)} notwendig.</li>`;
+                    recommendations += '<li>Eine professionelle Beratung zur Optimierung deiner Altersvorsorge ist dringend empfohlen.</li>';
+                }
+                
+                // Add general recommendations
+                recommendations += '<li>Informiere dich über verschiedene Anlageformen wie ETF-Sparpläne, private Rentenversicherungen oder Rürup-Rente, die besonders für Selbständige attraktiv sein können.</li>';
+                
+                // Recommend gesetzliche Rentenversicherung if not already contributing
+                if (gesetzlicheRente.value === '0') {
+                    recommendations += '<li>Erwäge den freiwilligen Eintritt in die gesetzliche Rentenversicherung, insbesondere wenn du erst am Anfang deiner Selbständigkeit stehst.</li>';
+                }
+                
+                // Recommend saving at least 20% of income
+                const recommendedSavings = currentIncome * 0.20 / 12;
+                if (currentMonthlySavings < recommendedSavings) {
+                    recommendations += `<li>Versuche, mindestens 20% deines Nettoeinkommens für die Altersvorsorge zurückzulegen (ca. ${formatCurrency(recommendedSavings)} monatlich).</li>`;
+                }
+                
+                recommendations += '</ul>';
+                
+                // Add closing paragraph
+                recommendations += '<p>Bedenke, dass dieser Rechner nur eine grobe Schätzung liefert. Für eine detaillierte und auf deine persönliche Situation zugeschnittene Beratung empfehlen wir dir ein persönliches Gespräch mit unseren Experten.</p>';
+                
+                recommendationsContent.innerHTML = recommendations;
+            }
+            
+            // Update chart
+            function updateChart(requiredIncome, statePension, capitalPension, pensionGap) {
+                const ctx = document.getElementById('results-chart').getContext('2d');
+                
+                // Destroy existing chart if it exists
+                if (resultsChart) {
+                    resultsChart.destroy();
+                }
+                
+                // Create data for the chart
+                const data = {
+                    labels: ['Benötigtes Einkommen', 'Vorhandene Absicherung'],
+                    datasets: [
+                        {
+                            label: 'Benötigtes Einkommen',
+                            data: [requiredIncome, 0],
+                            backgroundColor: 'rgba(0, 29, 108, 0.7)',
+                            borderColor: 'rgba(0, 29, 108, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Gesetzliche Rente',
+                            data: [0, statePension],
+                            backgroundColor: 'rgba(226, 254, 108, 0.7)',
+                            borderColor: 'rgba(226, 254, 108, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Rente aus Kapital',
+                            data: [0, capitalPension],
+                            backgroundColor: 'rgba(199, 229, 74, 0.7)',
+                            borderColor: 'rgba(199, 229, 74, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Rentenlücke',
+                            data: [0, pensionGap],
+                            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                };
+                
+                // Chart options
+                const options = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += formatCurrency(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: false,
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        }
+                    }
+                };
+                
+                // Create the chart
+                resultsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data,
+                    options: options
+                });
+            }
+            
+            // Initialize
+            handleScroll();
+        });
+    </script>
+</body>
+</html>
