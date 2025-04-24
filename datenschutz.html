@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Datenschutzerklärung der vorsorge.berlin - Informationen zum Umgang mit Ihren personenbezogenen Daten">
+    <meta name="theme-color" content="#e2fe6c">
+    <title>Datenschutz - vorsorge.berlin - Altersvorsorge für Selbständige</title>
+    <!-- Dateiname: datenschutz.html -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e2fe6c;
+            --primary-dark: #c7e54a;
+            --secondary: #001d6c;
+            --secondary-light: #253c8a;
+            --light: #f5f7fa;
+            --dark: #121212;
+            --gray: #cfdbf7;
+            --gray-light: #edf0f7;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --container-padding: clamp(1rem, 5%, 2rem);
+            --section-spacing: 8rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 0.6rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .logo span.highlight {
+            color: var(--secondary);
+            background-color: var(--primary);
+            padding: 5px 10px;
+            border-radius: var(--radius-sm);
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section mit minimaler Höhe */
+        .hero {
+            background-color: var(--primary);
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 29, 108, 0.05);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h1 {
+            margin-bottom: 1rem;
+        }
+        
+        .hero-text p {
+            font-size: 1.125rem;
+            margin-bottom: 0;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background-color: var(--gray-light);
+            padding: 0.75rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .breadcrumbs a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--secondary-light);
+            text-decoration: underline;
+        }
+        
+        .breadcrumbs span {
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        /* Datenschutz Styles */
+        .datenschutz-section {
+            margin: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .datenschutz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .datenschutz-section h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .datenschutz-section h3:first-child {
+            margin-top: 0;
+        }
+        
+        .datenschutz-section ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .datenschutz-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            margin-left: auto;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--secondary);
+            position: absolute;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger span:nth-child(2) {
+            top: 9px;
+        }
+        
+        .hamburger span:nth-child(3) {
+            top: 18px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 9px;
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 9px;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--transition);
+            transform: translateY(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-3px);
+        }
+        
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1.5rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            z-index: 9999;
+            display: none;
+            animation: slideUp 0.5s ease forwards;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .cookie-text {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .cookie-text h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .cookie-text p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cookie-btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            min-width: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                box-shadow: var(--shadow-lg);
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                padding: 5rem 2rem 2rem;
+                z-index: 1000;
+                transition: var(--transition);
+                gap: 0;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            nav ul li a {
+                padding: 1rem 0;
+                display: block;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding: 0 1rem;
+            }
+            
+            .datenschutz-container {
+                padding: 1.5rem;
+            }
+            
+            .cookie-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .cookie-buttons {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            :root {
+                --container-padding: 1rem;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+            }
+            
+            .section-title {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="highlight">HT</span> vorsorge.berlin
+                </a>
+                <nav>
+                    <div class="hamburger" id="hamburger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="nav-menu">
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="index.html#kontakt">Kontakt</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="datenschutz.html" style="color: var(--secondary); font-weight: 700;">Datenschutz</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Startseite</a> &gt; <span>Datenschutz</span>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Datenschutzerklärung</h1>
+                    <p>Informationen zum Umgang mit Ihren personenbezogenen Daten</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="datenschutz-section container fade-in" style="animation-delay: 0.3s;">
+        <div class="datenschutz-container">
+            <p>Nachfolgend informieren wir Sie darüber, wie die House of Finance and Tech Berlin GmbH (nachfolgend „HoFT" oder „wir") Ihre personenbezogenen Daten verarbeitet, welche Rechte Ihnen zustehen und an wen Sie sich bei Fragen zum Datenschutz wenden können.</p>
+            
+            <p>In den meisten Fällen können Sie selbst entscheiden, welche personenbezogenen Daten Sie uns zur Verfügung stellen möchten. Für den Fall, dass Sie bestimmte Informationen nicht angeben möchten, sind wir möglicherweise nicht in der Lage, Ihnen bestimmte Dienste anzubieten. Pflichtangaben, die wir für die Bereitstellung unserer Dienste benötigen, haben wir entsprechend gekennzeichnet.</p>
+            
+            <p>Diese Informationen wurden zuletzt im Februar 2025 aktualisiert. Von Zeit zu Zeit müssen wir Anpassungen vornehmen, um den tatsächlichen Gegebenheiten oder gesetzlichen oder behördlichen Anforderungen gerecht zu werden; bitte werfen Sie beim nächsten Besuch unserer Website einen Blick auf die Datenschutzinformationen, um sicherzustellen, dass Sie auf dem neuesten Stand sind.</p>
+
+            <h3>Name und Kontaktdaten des Verantwortlichen</h3>
+            <p>
+                House of Finance and Tech Berlin GmbH<br>
+                c/o Spielfeld Digital Hub GmbH<br>
+                Skalitzer Str. 85-86<br>
+                10997 Berlin<br><br>
+                Tel: +49 (0)30 43974287-0<br>
+                E-Mail: <a href="mailto:info@hoft.berlin">info@hoft.berlin</a>
+            </p>
+
+            <h3>Datenverarbeitung auf unserer Website</h3>
+            <p>Wir verarbeiten Ihre personenbezogenen Daten, wenn Sie unsere Website besuchen und wenn Sie Kontakt mit uns aufnehmen.</p>
+            
+            <h4>Ihr Besuch auf unserer Website</h4>
+            <p>Bei jedem Besuch unserer Website übermittelt Ihr Browser automatisch Daten an unseren Server, wo sie gespeichert werden. Zu diesen Daten gehören IP-Adresse, Typ und Version des verwendeten Browsers, Zeitpunkt und Datum des Besuchs. Die IP-Adresse wird anonymisiert gespeichert. Ein persönlicher Bezug kann nicht hergestellt werden.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die vorgenannten Daten zur Wahrung unserer berechtigten Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht darin, die bequeme Nutzung und die Beurteilung der Systemsicherheit und -stabilität unserer Website zu gewährleisten.</p>
+            
+            <p><strong>Speicherdauer:</strong> Die vorgenannten Daten werden in einer Protokolldatei gespeichert, bis sie nach sieben Tagen automatisch gelöscht werden. Backups werden für 14 Tage in verschlüsselter Form gespeichert. Die Speicherdauer kann in Einzelfällen länger sein, z.B. wenn dies für die rechtliche Verfolgung notwendig ist.</p>
+            
+            <h4>Ihre Kontaktaufnahme</h4>
+            <p>Wenn Sie elektronisch Kontakt mit uns aufnehmen, z.B. indem Sie uns eine E-Mail senden, das Kontaktformular auf unserer Website nutzen oder uns anrufen, verarbeiten wir Ihre E-Mail-Adresse, Ihren Namen und Ihre weiteren Kontaktdaten sowie die Informationen, die Sie in der Anfrage angeben. Um auf Ihre schriftliche Anfrage antworten zu können, benötigen wir mindestens Ihre E-Mail-Adresse.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die vorgenannten Daten zur Wahrung unserer berechtigten Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht darin, auf allgemeine Anfragen zu antworten.</p>
+            
+            <p><strong>Speicherdauer:</strong> Ihre Daten werden nur zur Beantwortung Ihrer Anfrage verarbeitet und unmittelbar nach Beantwortung gelöscht, es sei denn, es besteht ein Vertragsverhältnis, eine gesetzliche Aufbewahrungspflicht oder ein berechtigtes Interesse unsererseits an einer weiteren Speicherung.</p>
+            
+            <h3>Einbindung externer Medien</h3>
+            <p>Wir binden Videos von Veranstaltungen auf unserer Website ein. Zu diesem Zweck laden wir unsere Inhalte auf die externe Plattform Wistia hoch. Wenn Sie die Videos abspielen, werden personenbezogene Daten (z.B. Spracheinstellungen, Meta-, Kommunikations- und Verfahrensdaten wie IP-Adressen, Zeitinformationen, Identifikationsnummern) verarbeitet und an den externen Medienanbieter übermittelt.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die Daten auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO.</p>
+            
+            <h3>Formulare</h3>
+            <p>Auf unserer Website nutzen wir den reCAPTCHA-Dienst in Eingabeformularen wie dem Kontaktformular, um zu beurteilen, ob eine Eingabe von einem Menschen vorgenommen wird oder missbräuchlich durch automatisierte maschinelle Verarbeitung erfolgt. reCAPTCHA verwendet verschiedene Merkmale, um das Verhalten des Website-Besuchers zu analysieren. Diese Analyse beginnt automatisch, sobald der Website-Besucher ein Formular mit integriertem reCAPTCHA aufruft. Für die Analyse wertet reCAPTCHA verschiedene Informationen aus (z.B. IP-Adresse, Verweildauer auf der Website oder vom Nutzer vorgenommene Mausbewegungen).</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die vorgenannten Daten zur Wahrung unserer berechtigten Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht darin, missbräuchliche automatisierte Zugriffe und Spam zu erkennen.</p>
+            
+            <h3>Cookies</h3>
+            <p>Wir verwenden Cookies auf unserer Website. Cookies sind kleine Textdateien, die eine zufällig generierte Benutzer-ID enthalten, mit der Sie bei zukünftigen Website-Besuchen wiedererkannt werden können. Wir verwenden Cookies, um unsere Website und unsere Angebote für Sie entsprechend zu gestalten und für Sie zugänglicher zu machen. Zum einen verwenden wir Cookies, die für die technische Funktionalität unserer Website notwendig sind. Mit Ihrer Einwilligung verwenden wir auch Cookies, die dazu dienen, Ihre Interaktion mit unserer Website und unseren Angeboten zu analysieren.</p>
+            
+            <h4>Cookie-Management-Plattform</h4>
+            <p>Diese Website verwendet das Consent-Management-Tool Borlabs, um Einwilligungen für die Datenverarbeitung und die Verwendung von Cookies oder ähnlichen Funktionen einzuholen und um den Besuchern der Website weitere Informationen zur Verwendung von Cookies zur Verfügung zu stellen. Im Rahmen der Nutzung des Tools werden Informationen von den verwendeten Endgeräten, wie z.B. die IP-Adresse, verarbeitet.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die vorgenannten Daten zur Wahrung unserer berechtigten Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Erfüllung unserer gesetzlichen Dokumentationspflichten.</p>
+            
+            <h3>Website-Analyse</h3>
+            <p>Wenn Sie uns Ihre Einwilligung geben, analysieren wir die Nutzung unserer Website mit dem Dienst Google Analytics 4. Während Ihres Website-Besuchs werden insbesondere Daten zu den von Ihnen besuchten Unterseiten, Ihrem Verhalten auf den Seiten, Ihrem ungefähren Standort (Land und Stadt), Ihrer IP-Adresse in abgekürzter Form (sodass keine eindeutige Zuordnung möglich ist), technische Informationen (wie Browser, Internetanbieter, Endgerät und Bildschirmauflösung) und die Quelle Ihres Besuchs erhoben.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die Daten auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO.</p>
+            
+            <h3>Datenverarbeitung auf unseren Social-Media-Kanälen</h3>
+            <p>Wir unterhalten ein öffentlich zugängliches Profil auf der Social-Media-Plattform LinkedIn. Wenn Sie unser LinkedIn-Profil nutzen, um mit uns zu interagieren (z.B. indem Sie einen Beitrag liken oder teilen, uns folgen, einen Kommentar schreiben oder uns eine Direktnachricht senden), verarbeiten wir die von Ihnen bereitgestellten Daten zum Zweck der Kontaktaufnahme. Wenn wir Ihre Beiträge liken, teilen oder kommentieren, werden die von Ihnen auf LinkedIn frei veröffentlichten Daten unseren Followern auf unserem Profil zur Verfügung gestellt. Alle Informationen, die Sie in Ihrem Profil angeben, sind öffentlich sichtbar, d.h. Mitglieder, die sich im Netzwerk anmelden, und LinkedIn-Kunden können sie einsehen. Dies gilt auch für Ihre Aktivitäten innerhalb des Dienstes, wie z.B.: Kommentare zu Beiträgen; "Gefällt mir"-Markierungen und die "Folgen"-Funktion.</p>
+            
+            <p>Gruppenmitgliedschaften sind ebenfalls öffentlich sichtbar. Wenn Sie Beiträge teilen, ist dies standardmäßig auf "öffentlich" eingestellt. Sie können die Sichtbarkeit dieser Beiträge in den Optionen auf Ihre Kontakte beschränken.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Die Rechtsgrundlage für diese Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht darin, mit unseren Geschäftspartnern und Interessenten in Kontakt zu bleiben und sie auf dem Laufenden zu halten sowie moderne Öffentlichkeitsarbeit zu betreiben und Marktforschung durchzuführen. Wenn Sie uns über Social Media kontaktieren, weil Sie an unserem Angebot interessiert sind, dient die Anfrage auch der Durchführung vorvertraglicher Maßnahmen als Reaktion auf Ihre Anfrage; die Rechtsgrundlage ist dann Art. 6 Abs. 1 lit. b DSGVO.</p>
+            
+            <p><strong>Empfänger:</strong> Das soziale Netzwerk LinkedIn wird von der LinkedIn Ireland Unlimited Company, Wilton Place, Dublin 2, Irland betrieben; der Betreiber des Netzwerks ist daher der Empfänger Ihrer Daten.</p>
+            
+            <p>LinkedIn kann einige der Informationen auch außerhalb der Europäischen Union in den USA verarbeiten. Der Anbieter ist gemäß dem EU-U.S. Data Privacy Framework zertifiziert.</p>
+            
+            <h3>Registrierung von Besuchern</h3>
+            <p>Wir freuen uns, Sie persönlich in unseren Räumlichkeiten begrüßen zu dürfen. Für die Anmeldung zu einem Besuch erheben wir Ihren Namen, Ihre E-Mail-Adresse, Datum und Uhrzeit Ihres Besuchs sowie weitere Informationen, die Sie uns freiwillig zur Verfügung stellen.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die vorgenannten Daten zur Wahrung unserer berechtigten Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht darin, die Sicherheit unserer Räumlichkeiten zu gewährleisten und ein Besuchermanagement durchzuführen.</p>
+            
+            <p><strong>Speicherdauer:</strong> Wir speichern Ihre Daten bis zu 30 Tage nach Ihrem Besuch in unseren Räumlichkeiten.</p>
+            
+            <h3>Datenverarbeitung beim Abschluss anderer Vertragsverhältnisse</h3>
+            <p>Wir verarbeiten personenbezogene Daten im Rahmen von Lieferantenbeziehungen, (Kooperations-)Verträgen, anderen Geschäftsbeziehungen und zur Erbringung von Dienstleistungen für Mitglieder des Fördervereins House of Finance and Tech Berlin e.V.</p>
+            
+            <p>Wenn HoFT Sie oder Ihren Arbeitgeber beispielsweise als Partnerunternehmen im HoFT-Netzwerk akzeptiert oder wenn ein ähnliches Vertragsverhältnis angebahnt wird oder zum Zweck der Kontaktaufnahme mit Ihnen, verarbeiten wir folgende Informationen: Stammdaten (z.B. Titel, Vorname, Nachname, Geschlecht, Ihre Position im Unternehmen); (öffentlich zugängliche) Daten über Ihr Unternehmen/ Ihren Arbeitgeber; Kommunikationsdaten (z.B. geschäftliche Telefonnummer, E-Mail-Adresse, geschäftliche Postanschrift);</p>
+            
+            <p>Diese Daten werden verarbeitet, um Sie oder Ihr Unternehmen/ Ihren Arbeitgeber als unseren Lieferanten, Dienstleister oder Partnerunternehmen identifizieren zu können; um gesetzliche Verpflichtungen zu erfüllen; um ein Vertragsverhältnis mit Ihnen/ Ihrem Unternehmen/ Ihrem Arbeitgeber anzubahnen, abzuschließen und zu erfüllen; für die Korrespondenz mit Ihnen, soweit diese der Anbahnung oder Erfüllung eines Vertrags oder der Erbringung von Mitgliederleistungen dient.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Die Rechtsgrundlage für diese Datenverarbeitung ist Art. 6 Abs. 1 lit. b DSGVO (wenn Sie persönlich Vertragspartner sind oder werden sollen) oder Art. 6 Abs. 1 lit. f DSGVO (wenn Ihr Arbeitgeber Vertragspartner ist oder werden soll oder Dienstleistungen für Mitglieder des Fördervereins House of Finance and Tech Berlin e.V. erbracht werden).</p>
+            
+            <p>Im Falle einer gesetzlichen Verpflichtung zur Datenverarbeitung ergibt sich die Rechtsgrundlage aus dem nationalen oder Unionsrecht in Verbindung mit Art. 6 Abs. 1 lit. c DSGVO.</p>
+            
+            <p>Wir müssen Ihre personenbezogenen Daten möglicherweise für die Geltendmachung von Ansprüchen oder zur Abwehr von Ansprüchen verarbeiten; die Rechtsgrundlage ist unser berechtigtes Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO an einer effizienten Rechtsverteidigung und Durchsetzung von Ansprüchen.</p>
+            
+            <p><strong>Speicherdauer:</strong> Die von uns erhobenen personenbezogenen Daten werden gespeichert, bis die oben genannten Zwecke entfallen, und dann gelöscht, es sei denn, wir sind aufgrund von Art. 6 Abs. 1 lit. c DSGVO aufgrund gesetzlicher Aufbewahrungs- und Dokumentationspflichten (z.B. nach Handels-, Straf- oder Steuerrecht) verpflichtet, sie länger aufzubewahren.</p>
+            
+            <p>Die Bereitstellung Ihrer personenbezogenen Daten ist erforderlich, wenn Sie oder Ihr Arbeitgeber ein Vertragsverhältnis mit uns eingehen möchten. Wenn Sie Ihre personenbezogenen Daten nicht angeben, wird es nicht möglich sein, das Vertragsverhältnis zu begründen und durchzuführen.</p>
+            
+            <h3>Marketing und Information für Bestandskunden</h3>
+            <h4>Newsletter</h4>
+            <p>Sie können sich beispielsweise auf unserer Website für unseren Newsletter anmelden. Dazu müssen Sie Ihre E-Mail-Adresse, Ihren Vor- und Nachnamen sowie das Unternehmen in die dafür vorgesehenen Felder auf unserer Website eingeben. Anschließend erhalten Sie eine Benachrichtigungs-E-Mail. Durch Klick auf den in dieser E-Mail enthaltenen Link bestätigen Sie, dass Sie unseren Newsletter erhalten möchten (Double-Opt-in). Wenn Sie nicht auf diesen Bestätigungslink klicken, werden Sie in Zukunft keinen Newsletter erhalten. Um die Inhalte kontinuierlich zu verbessern, werden mit Hilfe von Web-Beacons und ähnlichen Technologien auch Daten zum Nutzerverhalten verarbeitet (z.B. Öffnungsraten der E-Mail und darin enthaltene Links).</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Die Rechtsgrundlage für diese Datenverarbeitung ist Art. 6 Abs. 1 lit. a DSGVO. Sie können Ihre Einwilligung in die Verarbeitung im Rahmen des Newsletter-Abonnements jederzeit mit Wirkung für die Zukunft widerrufen. Zu diesem Zweck finden Sie in jedem Newsletter einen Abmeldelink.</p>
+            
+            <p><strong>Speicherdauer:</strong> Ihre Daten für den Versand des Newsletters werden gespeichert, solange Sie diesen abonniert haben. Diese Daten werden anschließend gelöscht.</p>
+            
+            <h4>Informationen für Bestandskunden</h4>
+            <p>Darüber hinaus versenden wir Werbe-E-Mails an registrierte Kunden und Veranstaltungsteilnehmer mit Informationen über unsere Veranstaltungen, Produkte und Dienstleistungen.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Die Rechtsgrundlage für die Verarbeitung dieser Daten ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht in der Werbung für Bestandskunden.</p>
+            
+            <p>Wir möchten Sie darauf hinweisen, dass Sie dem Erhalt dieser Informationen und der Verarbeitung zum Zweck der Bereitstellung dieser Informationen jederzeit widersprechen können, ohne dass Ihnen dadurch andere Kosten als die Übermittlungskosten nach den Grundtarifen entstehen. Sie haben ein allgemeines Widerspruchsrecht ohne Angabe von Gründen gemäß Art. 21 Abs. 2 DSGVO. Sie können Ihren Widerspruch erklären, indem Sie uns eine Nachricht senden (siehe die Kontaktdaten im Abschnitt "Name und Kontaktdaten des Verantwortlichen"). Wir werden Ihre Daten spätestens nach Ihrem Widerspruch löschen.</p>
+            
+            <h3>Datenverarbeitung im Rahmen von Veranstaltungen</h3>
+            <p>Wenn Sie sich auf unserer Website, per E-Mail oder über einen Einladungslink, den wir Ihnen zusenden, für eine unserer Veranstaltungen anmelden, verarbeiten wir Ihre personenbezogenen Daten in dem Umfang, der für die Organisation, Durchführung und Nachbereitung der Veranstaltung notwendig ist. Wir erheben zu diesem Zweck folgende Daten: Vor- und Nachname, Titel, Unternehmen, Anschrift, E-Mail-Adresse und bei kostenpflichtigen Veranstaltungen Rechnungsdaten.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Bei Veranstaltungen, die keiner Gebühr unterliegen, ist die Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, unsere berechtigten Interessen an der effizienten Verwaltung der Teilnehmer, dem reibungslosen Ablauf der Veranstaltung und zum Zweck der Zugangskontrolle und um nur eingeladenen Gästen Zutritt zu gewähren, um die Registrierungsdaten mit den tatsächlichen Teilnehmern abgleichen zu können. Für kostenpflichtige Veranstaltungen ist die Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO, der entsprechende Vertrag.</p>
+            
+            <p>Die Bereitstellung Ihrer Daten ist für die Teilnahme an der Veranstaltung notwendig und Sie sind vertraglich verpflichtet, Ihre Daten bereitzustellen. Wenn Sie Ihre Daten nicht bereitstellen, wird es nicht möglich sein, den Vertrag abzuschließen und/oder durchzuführen.</p>
+            
+            <p><strong>Speicherdauer:</strong> Wir speichern Ihre Daten für die Dauer der Organisation (einschließlich entsprechender Vorbereitung und Nachbereitung) der jeweiligen Veranstaltung. Etwaige bestehende gesetzliche Aufbewahrungspflichten bleiben davon unberührt. Wir werden die Teilnehmerdaten innerhalb von vier Wochen nach Ende der Veranstaltung löschen.</p>
+            
+            <p>Bei Veranstaltungen machen wir Fotos und Videoaufnahmen und veröffentlichen diese im Anschluss. Die Aufnahmen werden für Werbung auf unserer Website, auf LinkedIn, in Pressemitteilungen und zur Dokumentation der Veranstaltung online und offline verwendet.</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Wir verarbeiten die vorgenannten Daten zur Wahrung unserer berechtigten Interessen gemäß Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht darin, die Veranstaltung zu dokumentieren und die Sichtbarkeit des HoFT in der Öffentlichkeit zu erhöhen und die Aktivitäten und Dienstleistungen des HoFT bekannt zu machen.</p>
+            
+            <h3>Datenverarbeitung im Bewerbungsprozess</h3>
+            <p>Wir verarbeiten die Daten, die Sie uns selbst bei Ihrer Bewerbung für eine Stelle zur Verfügung stellen (z.B. mit Ihrem Anschreiben, Lebenslauf und Zeugnissen).</p>
+            
+            <p>Während des Bewerbungsprozesses verarbeiten wir folgende Arten von Daten: Stammdaten (z.B. Titel, Vorname, Nachname, Geburtsdatum, Wohnort); Dokumente (z.B. Zeugnisse, Referenzen, Lebenslauf, Anschreiben); falls Sie erstattungsfähige Ausgaben hatten, die für die Abrechnung relevanten Daten, z.B. Ihre Bankverbindung und Kommunikationsdaten (z.B. Telefonnummern, E-Mail, Postanschrift).</p>
+            
+            <p><strong>Rechtsgrundlage:</strong> Die Rechtsgrundlage für die Verarbeitung Ihrer personenbezogenen Daten ist Art. 6 Abs. 1 lit. b DSGVO. Die Verarbeitung dieser Daten ist für die Entscheidung über die Begründung eines Vertragsverhältnisses notwendig. Soweit besondere Kategorien personenbezogener Daten verarbeitet werden (z.B. Gesundheitsdaten), verarbeiten wir diese aus Gründen des Arbeitsrechts, des Rechts der sozialen Sicherheit oder des Sozialschutzes gemäß Art. 6 Abs. 1 lit. b in Verbindung mit Art. 9 Abs. 2 lit. b DSGVO.</p>
+            
+            <p>Nach Abschluss des Bewerbungsverfahrens kann die Datenverarbeitung entweder auf Ihrer Einwilligung beruhen oder für die Rechtsdurchsetzung erforderlich sein, wobei die Rechtsgrundlage dann Art. 6 Abs. 1 lit. f DSGVO, unser berechtigtes Interesse an der Geltendmachung oder Abwehr von Ansprüchen, sein wird.</p>
+            
+            <p><strong>Speicherdauer:</strong> Die von uns erhobenen Daten werden gespeichert, bis die oben genannten Zwecke entfallen, und dann gelöscht, es sei denn, wir sind aufgrund von Art. 6 Abs. 1 lit. c DSGVO aufgrund gesetzlicher Aufbewahrungs- und Dokumentationspflichten (z.B. nach Handels-, Straf- oder Steuerrecht) verpflichtet, sie länger aufzubewahren.</p>
+            
+            <p>Für den Fall, dass Sie einer weiteren Speicherung Ihrer Bewerbungsdaten zugestimmt haben, werden wir Ihre Daten in unseren Bewerberpool übernehmen. Dort werden die Daten nach zwei Jahren gelöscht.</p>
+            
+            <p>Bei erfolgloser Bewerbung werden die Daten in der Regel sechs Monate nach Abschluss des Verfahrens gelöscht, sofern nicht im Einzelfall längere Aufbewahrungsfristen bestehen (z.B. für etwaige Belege zur Erstattung von Reisekosten) oder eine längere Aufbewahrung zur Abwehr von Rechtsansprüchen notwendig ist.</p>
+            
+            <h3>Weitergabe Ihrer personenbezogenen Daten</h3>
+            <p>Wir geben Ihre Daten nur weiter, wenn wir dazu gesetzlich berechtigt sind. Wenn wir Ihre Daten in ein Land übermitteln, das weder Teil der EU noch des EWR ist und für das kein Angemessenheitsbeschluss der EU-Kommission vorliegt, werden wir alle notwendigen Maßnahmen ergreifen, um die jeweilige Datenverarbeitung abzusichern. Dazu gehören beispielsweise Standardvertragsklauseln der EU-Kommission.</p>
+            
+            <p>Wir können Ihre Daten wie folgt weitergeben, sofern nicht bereits oben gesondert erwähnt:</p>
+            
+            <ul>
+                <li>Wir nutzen einen Hosting-Dienstleister als Auftragsverarbeiter für den Betrieb dieser Website. Der Auftragsverarbeiter ist IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, Deutschland.</li>
+                <li>Zur Einbettung von Videos auf unserer Website nutzen wir den Dienstleister Wistia, Inc, 120 Brookline Street, Cambridge, Massachusetts, 02139 USA. Der Anbieter ist gemäß dem EU-U.S. Data Privacy Framework zertifiziert.</li>
+                <li>Wir nutzen den Dienstleister Eventbrite DE GmbH, Oranienstr. 25, 10999 Berlin, Deutschland als Auftragsverarbeiter für das Teilnehmermanagement. Der Anbieter ist gemäß dem EU-U.S. Data Privacy Framework zertifiziert.</li>
+                <li>Wir nutzen den Dienstleister AddEvent, Inc, 848 Folsom Street, San Francisco, CA 94017, USA als Auftragsverarbeiter für das Teilnehmermanagement. Mit AddEvent, Inc. wurden entsprechende EU-Standardvertragsklauseln für die Übermittlung personenbezogener Daten an Empfänger in Drittländern (als angemessene Garantie für die Datenverarbeitung in nicht-europäischen Ländern) abgeschlossen. Sie können die verwendeten EU-Standardvertragsklauseln über den folgenden Link einsehen: <a href="https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32021D0914" target="_blank">https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32021D0914</a>.</li>
+                <li>Wir nutzen den Dienstleister HubSpot, Inc, 25 First Street, Cambridge, MA 02141 USA für den Versand unseres Newsletters und Informationen an Bestandskunden. Der Anbieter ist gemäß dem EU-U.S. Data Privacy Framework zertifiziert.</li>
+                <li>Für die Webanalyse nutzen wir den Dienst Google Analytics 4 von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Der Anbieter ist gemäß dem EU-U.S. Data Privacy Framework zertifiziert.</li>
+                <li>Zum Schutz unserer Formulare vor Missbrauch nutzen wir den reCAPTCHA-Dienst von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Der Anbieter ist gemäß dem EU-U.S. Data Privacy Framework zertifiziert.</li>
+                <li>Für die sichere und leistungsstarke Bereitstellung unserer Website nutzen wir den Dienst Cloudflare von Cloudflare Inc, 101 Townsend St, San Francisco, CA 94107, USA. Der Anbieter ist gemäß dem EU-U.S. Data Privacy Framework zertifiziert.</li>
+                <li>Zur Bereitstellung des Cookie-Banners auf unserer Website nutzen wir den Dienst Borlabs vom Dienstleister Borlabs GmbH, Hamburger Str. 11, 22083 Hamburg, Deutschland.</li>
+                <li>Zur Verwaltung von Bewerbungen nutzen wir die Personalverwaltungssoftware Personio vom Dienstleister Personio SE & Co KG, Seidlstraße 3, 80335 München, Deutschland.</li>
+                <li>Öffentliche Stellen/Behörden, insbesondere Finanzbehörden, können Daten erhalten, wenn dies zur Erfüllung einer gesetzlichen Verpflichtung erforderlich ist. Die Rechtsgrundlage für die Übermittlung ist Art. 6 Abs. 1 lit. c DSGVO.</li>
+            </ul>
+            
+            <h3>Speicher- und Aufbewahrungsfristen</h3>
+            <p>Sofern nicht bereits oben gesondert erwähnt, speichern wir Ihre personenbezogenen Daten so lange, wie es für die Erreichung des jeweiligen Zwecks erforderlich ist, insbesondere zur Erfüllung unserer gesetzlichen und vertraglichen Verpflichtungen. Sobald der Zweck entfallen ist, werden diese Daten gelöscht, es sei denn, das Gesetz erlaubt uns, sie für bestimmte Zwecke weiter zu speichern, einschließlich der Abwehr von Rechtsansprüchen. Darüber hinaus müssen wir Ihre Daten möglicherweise für Abrechnungszwecke speichern. Wir unterliegen gesetzlichen Aufbewahrungs- und Dokumentationspflichten, die uns verpflichten, Dokumente zwischen zwei und zehn Jahren aufzubewahren.</p>
+            
+            <h3>Ihre Rechte</h3>
+            <p>Als betroffene Person stehen Ihnen bei Vorliegen der entsprechenden Voraussetzungen folgende Rechte zu:</p>
+            
+            <ul>
+                <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+                <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+                <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+                <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+                <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+            </ul>
+            
+            <p>Sie haben auch das Recht gemäß Art. 77 DSGVO, sich bei einer Aufsichtsbehörde Ihrer Wahl über unsere Datenverarbeitung zu beschweren. Unser Sitz ist in Berlin. Die für uns zuständige Aufsichtsbehörde ist: Berliner Beauftragte für Datenschutz und Informationsfreiheit, Alt-Moabit 59-61, 10555 Berlin, Deutschland.</p>
+            
+            <p>Darüber hinaus haben Sie das Recht, Widerspruch einzulegen (Art. 21 DSGVO), wenn wir Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeiten. Bitte beachten Sie, dass im Falle der Datenverarbeitung für andere Zwecke als Direktmarketing Gründe angegeben werden müssen, die sich aus Ihrer besonderen Situation ergeben. Sie können Ihren Widerspruch erklären, indem Sie uns eine Nachricht senden (siehe die Kontaktdaten im Abschnitt "Name und Kontaktdaten des Verantwortlichen").</p>
+            
+            <p>Wenn wir Ihre personenbezogenen Daten auf Grundlage Ihrer Einwilligung verarbeiten, können Sie Ihre Einwilligung mit Wirkung für die Zukunft widerrufen. Sie können Ihren Widerruf erklären, indem Sie uns eine Nachricht senden (siehe die Kontaktdaten im Abschnitt "Name und Kontaktdaten des Verantwortlichen").</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>vorsorge.berlin</h3>
+                    <p>House of Finance and Tech Berlin GmbH<br>
+                    (HoFT Berlin GmbH)<br>
+                    c/o Spielfeld Digital Hub GmbH<br>
+                    Skalitzer Str. 85-86<br>
+                    10997 Berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <p>Tel: +49 (0)30 43974287-0<br>
+                    E-Mail: info@hoft.berlin</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html#grundlagen">Grundlagen</a></li>
+                        <li><a href="index.html#vorsorgeplanung">Vorsorgeplanung</a></li>
+                        <li><a href="index.html#tools">Tools & Rechner</a></li>
+                        <li><a href="index.html#beratung">Jetzt loslegen</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Rechtliches</h3>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="datenschutz.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 vorsorge.berlin | House of Finance and Tech Berlin GmbH</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookie-consent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3>Hinweis zu Cookies</h3>
+                <p>Diese Website verwendet Cookies, um Ihnen ein optimales Nutzererlebnis zu bieten. Durch die weitere Nutzung unserer Website stimmen Sie der Verwendung von Cookies zu. Detaillierte Informationen zur Verwendung von Cookies finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-all-cookies" class="btn cookie-btn">Alle akzeptieren</button>
+                <button id="accept-essential-cookies" class="btn cookie-btn btn-secondary">Nur essenzielle Cookies</button>
+                <button id="cookie-settings" class="btn cookie-btn btn-secondary">Einstellungen</button>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Nach oben scrollen">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const header = document.getElementById('header');
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const backToTop = document.getElementById('back-to-top');
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptAllCookies = document.getElementById('accept-all-cookies');
+            const acceptEssentialCookies = document.getElementById('accept-essential-cookies');
+            const cookieSettings = document.getElementById('cookie-settings');
+            const scrollThreshold = 100;
+            
+            // Show cookie consent
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieConsent.style.display = 'block';
+                }, 1000);
+            }
+            
+            // Cookie consent handlers
+            acceptAllCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'all');
+                cookieConsent.style.display = 'none';
+            });
+            
+            acceptEssentialCookies.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'essential');
+                cookieConsent.style.display = 'none';
+            });
+            
+            cookieSettings.addEventListener('click', () => {
+                // In a real implementation, this would open a modal with detailed cookie settings
+                alert('In einer vollständigen Implementierung würde hier ein Modal mit detaillierten Cookie-Einstellungen geöffnet werden.');
+            });
+            
+            // Toggle mobile menu
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Close menu when clicking on nav items
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (navMenu.classList.contains('active') && 
+                    !event.target.closest('nav')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Scroll event listener
+            window.addEventListener('scroll', handleScroll);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', smoothScroll);
+            });
+            
+            // Intersection Observer for animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+            
+            // Back to top button
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Functions
+            function toggleMobileMenu(e) {
+                e.stopPropagation();
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+            
+            function closeMobileMenu() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+            
+            function handleScroll() {
+                // Smaller header on scroll
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('scrolled');
+                    backToTop.classList.add('visible');
+                } else {
+                    header.classList.remove('scrolled');
+                    backToTop.classList.remove('visible');
+                }
+            }
+            
+            function smoothScroll(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - headerHeight;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    closeMobileMenu();
+                }
+            }
+            
+            // Initialize
+            handleScroll();
+        });
+    </script>
+</body>
+</html>
